@@ -1,4 +1,4 @@
-package elementos;
+package entity;
 
 public class Operadora {
 
