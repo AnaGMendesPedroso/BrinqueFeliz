@@ -1,5 +1,10 @@
 package entity;
 
+import entity.Cliente;
+import entity.Funcionario;
+import entity.ItemDeVenda;
+import entity.Pagamento;
+import entity.Produto;
 import java.util.Date;
 import java.util.Collection;
 
