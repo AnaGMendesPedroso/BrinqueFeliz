@@ -1,74 +1,108 @@
 package entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import java.util.Collection;
+@Entity
+@Table (name="endereco")
+public class Endereco implements Serializable {
 
-public class Endereco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_sequence")
+    @SequenceGenerator(name = "endereco_sequence", sequenceName = "endereco_seq", allocationSize = 1)
+    private long idEndereco;
 
-	private String estado;
+    @Column(nullable = false)
+    private String estado;
 
-	private String cidade;
+    @Column(nullable = false)
+    private String cidade;
 
-	private String rua;
+    @Column
+    private String rua;
 
-	private String bairro;
+    @Column
+    private String bairro;
 
-	private int numero;
+    @Column
+    private int numero;
 
-	private int cep;
+    @Column
+    private int cep;
 
-	private Collection<Cliente> cliente;
+    public Endereco() {
+    }
 
-	private Empresa empresa;
+    public Endereco(String estado, String cidade, String rua, String bairro, int numero, int cep) {
+        this.estado = estado;
+        this.cidade = cidade;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.numero = numero;
+        this.cep = cep;
+    }
 
-	private Collection<Funcionario> funcionario;
+    public long getIdEndereco() {
+        return idEndereco;
+    }
 
-	public void setEstado(String estado) {
+    public void setIdEndereco(long idEndereco) {
+        this.idEndereco = idEndereco;
+    }
 
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public String getEstado() {
-		return null;
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	public void setCidade(String cidade) {
+    public String getCidade() {
+        return cidade;
+    }
 
-	}
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
 
-	public String getCidade() {
-		return null;
-	}
+    public String getRua() {
+        return rua;
+    }
 
-	public void setRua(int rua) {
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
 
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public int getRua() {
-		return 0;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public void setBairro(String bairro) {
+    public int getNumero() {
+        return numero;
+    }
 
-	}
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-	public String getBairro() {
-		return null;
-	}
+    public int getCep() {
+        return cep;
+    }
 
-	public void setNumero(int numero) {
+    public void setCep(int cep) {
+        this.cep = cep;
+    }
 
-	}
-
-	public int getNumero() {
-		return 0;
-	}
-
-	public void setCep(int cep) {
-
-	}
-
-	public int getCep() {
-		return 0;
-	}
-
+    
 }

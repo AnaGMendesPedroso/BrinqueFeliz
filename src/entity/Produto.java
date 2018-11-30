@@ -1,47 +1,53 @@
 package entity;
 
 import java.util.Collection;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class Produto {
+@Entity
+@Table(name = "produto")
+public class Produto implements Serializable {
 
+    @Id
     private int codigoBarras;
 
+    @Column(nullable = false)
     private String nomeProduto;
 
+    @Column
     private String descricao;
 
-    private int preco;
+    @Column(nullable = false)
+    private double preco;
 
+    @Column(nullable = false)
     private int qtdEstoque;
 
-    private Venda venda;
-
-    private Estoque estoque;
-
+    @OneToOne
+    @JoinColumn(name = "idCategoria")
     private Categoria categoria;
 
+    @OneToMany
+    @JoinColumn(name = "idEmpresa")
     private Collection<Empresa> empresa;
 
-    private Collection<ItemDeVenda> itemDeVenda;
-
-    public Produto buscarProduto(int idProduto) {
-        return null;
+    public Produto() {
     }
 
-    public boolean alterarProduto(int idProduto) {
-        return false;
-    }
-
-    public boolean excluirProduto(int idProduto) {
-        return false;
-    }
-
-    public void cadastrarProduto(int codBarras, String nomeProduto, int idCategoria, int qtdEstoque, int idFabricante, int idFornecedor, int precoVenda, String descricao) {
-
-    }
-
-    public Produto buscarProduto(String nomeProduto) {
-        return null;
+    public Produto(int codigoBarras, String nomeProduto, String descricao, double preco, int qtdEstoque, Categoria categoria, Collection<Empresa> empresa) {
+        this.codigoBarras = codigoBarras;
+        this.nomeProduto = nomeProduto;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.qtdEstoque = qtdEstoque;
+        this.categoria = categoria;
+        this.empresa = empresa;
     }
 
     public int getCodigoBarras() {
@@ -68,11 +74,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -82,22 +88,6 @@ public class Produto {
 
     public void setQtdEstoque(int qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
-    }
-
-    public Venda getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
-    }
-
-    public Estoque getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
     }
 
     public Categoria getCategoria() {
@@ -116,12 +106,5 @@ public class Produto {
         this.empresa = empresa;
     }
 
-    public Collection<ItemDeVenda> getItemDeVenda() {
-        return itemDeVenda;
-    }
-
-    public void setItemDeVenda(Collection<ItemDeVenda> itemDeVenda) {
-        this.itemDeVenda = itemDeVenda;
-    }
-
+    
 }

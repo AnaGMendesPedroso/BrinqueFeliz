@@ -1,26 +1,62 @@
 package entity;
 
-public class Pagamento {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-    private int valor;
+@Entity
+@Table(name="pagamento")
+public class Pagamento implements Serializable {
 
+    @Id@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pagamento_sequence")
+    @SequenceGenerator(name = "pagemento_sequence", sequenceName = "pagamento_seq", allocationSize = 1)
+      private long idPagamento;
+
+    @Column(nullable = false)
+    private double valor;
+    
+    @Column(nullable = false)
     private String tipoPagamento;
 
+    @OneToOne
+    @JoinColumn(name = "idCliente")
     private Cliente cliente;
-
-    private Pagamento pagamento;
-
+    
+    @OneToOne
+    @JoinColumn(name = "idVenda")
     private Venda venda;
 
-    public String registrarPagamento(int idVenda, String tipoPagamento) {
-        return null;
+    public Pagamento() {
     }
 
-    public int getValor() {
+    public Pagamento(Long idPagamento, double valor, String tipoPagamento, Cliente cliente, Venda venda) {
+        this.idPagamento = idPagamento;
+        this.valor = valor;
+        this.tipoPagamento = tipoPagamento;
+        this.cliente = cliente;
+        this.venda = venda;
+    }
+
+    public Long getIdPagamento() {
+        return idPagamento;
+    }
+
+    public void setIdPagamento(Long idPagamento) {
+        this.idPagamento = idPagamento;
+    }
+
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -40,14 +76,6 @@ public class Pagamento {
         this.cliente = cliente;
     }
 
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
-
     public Venda getVenda() {
         return venda;
     }
@@ -55,5 +83,7 @@ public class Pagamento {
     public void setVenda(Venda venda) {
         this.venda = venda;
     }
+
+    
 
 }

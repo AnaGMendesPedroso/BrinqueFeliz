@@ -1,23 +1,79 @@
 package entity;
 
-import entity.Cliente;
-import entity.Funcionario;
-import entity.ItemDeVenda;
-import entity.Pagamento;
-import entity.Produto;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
-public class Venda {
+@Entity
+@Table(name = "venda")
+public class Venda implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_sequence")
+    @SequenceGenerator(name = "venda_sequence", sequenceName = "venda_seq", allocationSize = 1)
+    private long idVenda;
+
+    @Column(nullable = false)
     private double valor;
+
+    @Column(nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
+    @JoinColumn(name = "idProduto")
     private Produto produto;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemvenda")
+    @JoinColumn(name = "idItemVenda")
     private Collection<ItemDeVenda> itemDeVenda;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    @JoinColumn(name = "idCliente")
     private Cliente cliente;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
+    @JoinColumn(name = "matricula")
     private Funcionario funcionario;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pagamento")
+    @JoinColumn(name = "idPagamento")
     private Pagamento pagamento;
 
+    public Venda() {
+    }
+
+    public Venda(long idVenda, double valor, Date data, Produto produto, Collection<ItemDeVenda> itemDeVenda, Cliente cliente, Funcionario funcionario, Pagamento pagamento) {
+        this.idVenda = idVenda;
+        this.valor = valor;
+        this.data = data;
+        this.produto = produto;
+        this.itemDeVenda = itemDeVenda;
+        this.cliente = cliente;
+        this.funcionario = funcionario;
+        this.pagamento = pagamento;
+    }
+
+    public Venda(long idVenda, Date data, Cliente cliente, Funcionario funcionario) {
+        this.idVenda = idVenda;
+        this.data = data;
+        this.cliente = cliente;
+        this.funcionario = funcionario;
+    }
+
+    
+    
     public void gerarRecibo() {
 
     }
@@ -54,6 +110,14 @@ public class Venda {
         return null;
     }
 
+    public long getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(long idVenda) {
+        this.idVenda = idVenda;
+    }
+
     public double getValor() {
         return valor;
     }
@@ -86,15 +150,6 @@ public class Venda {
         this.itemDeVenda = itemDeVenda;
     }
 
-
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -111,4 +166,13 @@ public class Venda {
         this.funcionario = funcionario;
     }
 
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    
 }
