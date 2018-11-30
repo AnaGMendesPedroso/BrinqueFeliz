@@ -1,28 +1,68 @@
 package entity;
 
-import java.util.Collection;
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-public class Empresa {
+@Entity
+@Table(name = "empresa")
+public class Empresa implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_sequence")
+    @SequenceGenerator(name = "empresa_sequence", sequenceName = "empresa_seq", allocationSize = 1)
+    private long idEmpresa;
+
+    @Column(nullable = false)
     private int cnpj;
 
+    @Column(nullable = false)
     private String nomeFantasia;
 
+    @Column(nullable = false)
     private String razaoSocial;
 
-    private String tipo;
+    @Column(nullable = false)
+    private boolean ehFornecedora;
 
-    private int telefone;
+    @Column(nullable = false)
+    private long telefone;
 
+    @Column
     private String email;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEndereco", referencedColumnName = "idEndereco")
     private Endereco endereco;
 
-    private Collection<Empresa> empresa;
-
-    private Collection<Produto> produto;
-
     public Empresa() {
+    }
+
+    public Empresa(int cnpj, String nomeFantasia, String razaoSocial, boolean ehFornecedora, long telefone, String email, Endereco endereco) {
+        this.cnpj = cnpj;
+        this.nomeFantasia = nomeFantasia;
+        this.razaoSocial = razaoSocial;
+        this.ehFornecedora = ehFornecedora;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+    }
+
+    public long getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(long idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public int getCnpj() {
@@ -49,19 +89,19 @@ public class Empresa {
         this.razaoSocial = razaoSocial;
     }
 
-    public String getTipo() {
-        return tipo;
+    public boolean isEhFornecedora() {
+        return ehFornecedora;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setEhFornecedora(boolean ehFornecedora) {
+        this.ehFornecedora = ehFornecedora;
     }
 
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 
@@ -81,20 +121,6 @@ public class Empresa {
         this.endereco = endereco;
     }
 
-    public Collection<Empresa> getEmpresa() {
-        return empresa;
-    }
 
-    public void setEmpresa(Collection<Empresa> empresa) {
-        this.empresa = empresa;
-    }
-
-    public Collection<Produto> getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Collection<Produto> produto) {
-        this.produto = produto;
-    }
 
 }

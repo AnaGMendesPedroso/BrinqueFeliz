@@ -1,55 +1,101 @@
 package entity;
 
-import java.util.Collection;
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-public class Cliente {
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-	private String nome;
+@Entity
+@Table(name = "cliente")
+public class Cliente implements Serializable {
 
-	private int cpf;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_sequence")
+    @SequenceGenerator(name = "cliente_sequence", sequenceName = "cliente_seq", allocationSize = 1)
+    private long idCliente;
 
-	private int telefone;
+    @Column(nullable = false)
+    private String nome;
 
-	private String email;
+    @Column
+    private int cpf;
 
-	private Collection<Pagamento> pagamento;
+    @Column
+    private int telefone;
 
-	private Funcionario funcionario;
+    @Column
+    private String email;
 
-	private Venda venda;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEndereco", referencedColumnName = "idEndereco")
+    private Endereco endereco;
 
-	private Endereco endereco;
+    public Cliente() {
+    }
 
-	public void setNome(String nome) {
+    public Cliente(long idCliente, String nome, int cpf, int telefone, String email, Endereco endereco) {
+        this.idCliente = idCliente;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+    }
 
-	}
+    public long getIdCliente() {
+        return idCliente;
+    }
 
-	public String getNome() {
-		return null;
-	}
+    public void setIdCliente(long idCliente) {
+        this.idCliente = idCliente;
+    }
 
-	public void setCpf(int cpf) {
+    public String getNome() {
+        return nome;
+    }
 
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public int getCpf() {
-		return 0;
-	}
+    public int getCpf() {
+        return cpf;
+    }
 
-	public void setTelefone(int telefone) {
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
+    }
 
-	}
+    public int getTelefone() {
+        return telefone;
+    }
 
-	public int getTelefone() {
-		return 0;
-	}
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
 
-	public void setEmail(String email) {
+    public String getEmail() {
+        return email;
+    }
 
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getEmail() {
-		return null;
-	}
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
 }

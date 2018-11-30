@@ -1,65 +1,64 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
-public class Funcionario {
+@Entity
+@Table(name = "funcionario")
+public class Funcionario implements Serializable {
 
-    private boolean tipoPermissao;
-
-    private Date dataContratacao;
-
-    private String tipo;
-
+    @Id
     private int matricula;
 
-    private int senha;
+    @Column(nullable = false)
+    private boolean ehAdministrador;
 
-    private int cpf;
-
+    @Column(nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataContratacao;
+    
+    @Column(nullable = false)
+    private String senha;
+    
+    @Column(nullable = false)
+    private String cpf;
+    
+    @Column(nullable = false)
     private String nome;
-
+    
+    @Column
     private int telefone;
-
+    
+    @Column
     private String email;
 
-    private Collection<Cliente> cliente;
-
-    private Collection<Venda> venda;
-
-    private Estoque estoque;
-
-    private Collection<Funcionario> funcionario;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "endereco")
+    @JoinColumn(name="idEndereco")
     private Collection<Endereco> endereco;
 
-    public boolean autentificarUsuario(int matricula, int senha) {
-        return false;
+    public Funcionario() {
     }
 
-    public boolean verificarPermissao(int tipoPermissao) {
-        return false;
-    }
-
-    public boolean isTipoPermissao() {
-        return false;
-    }
-
-    public Date getDataContratacao() {
-        return dataContratacao;
-    }
-
-    public void setDataContratacao(Date dataContratacao) {
+    public Funcionario(int matricula, boolean ehAdministrador, Date dataContratacao, String senha, String cpf, String nome, int telefone, String email, Collection<Endereco> endereco) {
+        this.matricula = matricula;
+        this.ehAdministrador = ehAdministrador;
         this.dataContratacao = dataContratacao;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
     }
 
     public int getMatricula() {
@@ -70,19 +69,35 @@ public class Funcionario {
         this.matricula = matricula;
     }
 
-    public int getSenha() {
+    public boolean isEhAdministrador() {
+        return ehAdministrador;
+    }
+
+    public void setEhAdministrador(boolean ehAdministrador) {
+        this.ehAdministrador = ehAdministrador;
+    }
+
+    public Date getDataContratacao() {
+        return dataContratacao;
+    }
+
+    public void setDataContratacao(Date dataContratacao) {
+        this.dataContratacao = dataContratacao;
+    }
+
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -110,38 +125,6 @@ public class Funcionario {
         this.email = email;
     }
 
-    public Collection<Cliente> getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Collection<Cliente> cliente) {
-        this.cliente = cliente;
-    }
-
-    public Collection<Venda> getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Collection<Venda> venda) {
-        this.venda = venda;
-    }
-
-    public Estoque getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
-    }
-
-    public Collection<Funcionario> getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Collection<Funcionario> funcionario) {
-        this.funcionario = funcionario;
-    }
-
     public Collection<Endereco> getEndereco() {
         return endereco;
     }
@@ -149,5 +132,4 @@ public class Funcionario {
     public void setEndereco(Collection<Endereco> endereco) {
         this.endereco = endereco;
     }
-
 }
