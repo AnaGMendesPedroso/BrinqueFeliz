@@ -1,39 +1,26 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-@Entity
-@Table (name="endereco")
 public class Endereco implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_sequence")
-    @SequenceGenerator(name = "endereco_sequence", sequenceName = "endereco_seq", allocationSize = 1)
+
     private long idEndereco;
 
-    @Column(nullable = false)
+
     private String estado;
 
-    @Column(nullable = false)
     private String cidade;
 
-    @Column
+
     private String rua;
 
-    @Column
+
     private String bairro;
 
-    @Column
     private int numero;
 
-    @Column
+
     private int cep;
 
     public Endereco() {

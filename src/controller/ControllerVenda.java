@@ -5,6 +5,7 @@ import entity.Funcionario;
 import entity.ItemDeVenda;
 import entity.Produto;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.LinkedList;
 import manager.EstoqueManager;
 import manager.PessoaManager;
@@ -89,6 +90,10 @@ public class ControllerVenda {
     public boolean finalizarVenda() {
         vendaManager.finalizarVenda();
         return true;
+    }
+
+    public Collection<ItemDeVenda> retornaLista() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

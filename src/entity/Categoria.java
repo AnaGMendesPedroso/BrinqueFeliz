@@ -2,36 +2,18 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "categoria")
 public class Categoria implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_sequence")
-    @SequenceGenerator(name = "categoria_sequence", sequenceName = "categoria_seq", allocationSize = 1)
-    @Column(name = "idcategoria", nullable = false)
     private long idCategoria;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
-    @JoinColumn(name="idProduto")
+
     private Collection<Produto> produto;
     
-    @Column(nullable = false)
+
     private String nomeCategoria;
     
-    @Column
     private String descricao;
     
     public Categoria() {
