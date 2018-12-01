@@ -31,12 +31,6 @@ public class ItemDeVenda implements Serializable {
     public ItemDeVenda() {
     }
 
-    public ItemDeVenda(Long idItemVenda, int quantidade, Produto produto) {
-        this.idItemVenda = idItemVenda;
-        this.quantidade = quantidade;
-        this.produto = produto;
-    }
-
     public ItemDeVenda(int quantidade, Produto produto) {
         this.quantidade = quantidade;
         this.produto = produto;
