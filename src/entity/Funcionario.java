@@ -4,46 +4,33 @@ import java.io.Serializable;
 import java.util.Date;
 
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
 
-@Entity
-@Table(name = "funcionario")
 public class Funcionario implements Serializable {
 
-    @Id
+    
     private int matricula;
 
-    @Column(nullable = false)
+    
     private boolean ehAdministrador;
 
-    @Column(nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    
     private Date dataContratacao;
     
-    @Column(nullable = false)
+    
     private String senha;
     
-    @Column(nullable = false)
+    
     private String cpf;
     
-    @Column(nullable = false)
+    
     private String nome;
     
-    @Column
+    
     private int telefone;
     
-    @Column
+    
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "endereco")
-    @JoinColumn(name="idEndereco")
     private Collection<Endereco> endereco;
 
     public Funcionario() {
