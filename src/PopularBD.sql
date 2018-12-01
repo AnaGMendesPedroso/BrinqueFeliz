@@ -74,11 +74,47 @@ CREATE TABLE pagamento (
 CREATE TABLE itemvenda (
     idItemVenda smallint,
     idVenda smallint NOT NULL,
-    codigoBarras numeric(11) NOT NULL
+    codigoBarras numeric(11) NOT NULL,
     quantidade smallint NOT NULL,
-
-    PRIMARY KEY 
+    PRIMARY KEY (idItemVenda, idVenda, codigoBarras)
 );
+
+CREATE TABLE funcionarioendereco (
+    matricula numeric(11),
+    idEndereco smallint,
+    PRIMARY KEY(matricula,idEndereco)
+);
+
+CREATE TABLE clienteendereco (
+    idCliente numeric(11),
+    idEndereco smallint,
+    PRIMARY KEY(idCliente,idEndereco)
+);
+
+CREATE TABLE produtofornecedor (
+    codigoBarrasProduto numeric(11),
+    idEmpresa smallint,
+    PRIMARY KEY (codigoBarrasProduto, idEmpresa)
+);
+
+CREATE TABLE endereco (
+    idEndereco smallint  PRIMARY KEY,
+    estado varchar(2),
+    cidade varchar(100),
+    rua varchar(100),
+    bairro varchar(100),
+    numerio numeric(100),
+    cep numeric(8) 
+);
+-- INSERE RESTRIÇÕES DE CHAVE ESTRANGEIRA
+ALTER TABLE ONLY brinquefelizschema.categoria ADD CONSTRAINT estoquefk FOREIGN KEY (idEstoque) REFERENCES brinquefelizschema.estoque(idEstoque);
+
+ALTER TABLE ONLY brinquefelizschema.produto ADD CONSTRAINT categoriafk FOREIGN KEY (idCategoria) REFERENCES brinquefelizschema.categoria(idCategoria);
+
+ALTER TABLE ONLY brinquefelizschema.itemvenda ADD CONSTRAINT vendafk FOREIGN KEY (idVenda) REFERENCES brinquefelizschema.venda(idVenda);
+
+ALTER TABLE ONLY brinquefelizschema.itemvenda ADD CONSTRAINT produtofk FOREIGN KEY (matricula) REFERENCES brinquefelizschema.venda(idVenda);
+
 --POPULA BD
 INSERT INTO brinquefelizschema.funcionario 
 ( matricula, nome, dataContratacao, ehAdministrador, senha, cpf, telefone, email)
