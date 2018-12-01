@@ -2,24 +2,39 @@ package entity;
 
 import java.util.Collection;
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "produto")
 public class Produto implements Serializable {
 
-
+    @Id
     private int codigoBarras;
 
- 
+    @Column(nullable = false)
     private String nomeProduto;
 
+    @Column
     private String descricao;
 
+    @Column(nullable = false)
     private double preco;
 
+    @Column(nullable = false)
     private int qtdEstoque;
 
-
+    @OneToOne
+    @JoinColumn(name = "idCategoria")
     private Categoria categoria;
 
+    @OneToMany
+    @JoinColumn(name = "idEmpresa")
     private Collection<Empresa> empresa;
 
     public Produto() {
