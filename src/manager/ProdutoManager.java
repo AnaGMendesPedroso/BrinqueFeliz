@@ -6,6 +6,7 @@
 package manager;
 import entity.Categoria;
 import entity.Produto;
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -28,7 +29,7 @@ public class ProdutoManager {
     }
    
 
-    public LinkedList<Produto> buscaProduto(String nomeProduto) {
+    public Collection<Produto> buscaProduto(String nomeProduto) {
        
         /*
        implementar codigo
@@ -38,7 +39,8 @@ public class ProdutoManager {
        */       
         
        //listaProd recebe lista de produtos buscado
-        LinkedList<Produto> listaProd= new LinkedList<Produto>();
+        Collection<Produto> listaProd =null;
+        
        return listaProd;
     }
 

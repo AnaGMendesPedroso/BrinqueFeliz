@@ -37,10 +37,19 @@ public class VendaManager {
     public void iniciarVenda(Funcionario func) {
       ven = new Venda(func);
      }
-
-    public void adicionarProdutoVenda(Produto prod, int qtd) {
+    //add produto na lista de venda...
+    public boolean adicionarProdutoVenda(Produto prod, int qtd) {
+        // mas antes recebe a quantidade atual
+        int qtdAtual= prod.getQtdEstoque();
+        //verifica se a quantidade atual é maior ou igual a quantidade a ser vendida
+        if(qtdAtual>=qtd){
+        //se sim, coloca o novo item de venda
         ItemDeVenda novo = new ItemDeVenda(qtd, prod);
         ven.adicionarProdutoVenda(novo);
+        return true;
+        }
+        //se não, retorna false indicando que item não foi inserido
+        else return false;
 
     }
 
@@ -71,8 +80,8 @@ public class VendaManager {
          */
     }
 
-    public void gerarComprovante() throws IOException {
-
+    public boolean gerarComprovante() {
+        try{
         FileWriter arq = new FileWriter("d:\\Comprovante-de-Venda.txt");
         PrintWriter gravarArq = new PrintWriter(arq);
 
@@ -100,14 +109,35 @@ public class VendaManager {
         gravarArq.printf("Total-------------------------%d%n", ven.getValor());
 
         arq.close();
+        return true;
+        }
+        catch (IOException e){
+            return false;
+        }
     }
 
     public void finalizarVenda() {
-        
+
         /*
         inserir venda no banco de dados
          */
 
+    }
+
+    public Collection<ItemDeVenda> retornaLista() {
+    Collection<ItemDeVenda> lista= ven.getItemDeVenda();
+    return lista;
+    }
+    
+    // busca produto dentro da venda iniciada e retorna se o produto existe ou não
+    public boolean buscaProdutoLista(Produto prod) {
+        Collection<ItemDeVenda> lista= ven.getItemDeVenda();
+        boolean teste = false;
+        for(ItemDeVenda a: lista)
+            if(a.getProduto().equals(prod)) 
+                teste= true;
+     return teste;
+     
     }
 
    

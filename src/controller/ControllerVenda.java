@@ -38,62 +38,80 @@ public class ControllerVenda {
         else vendaManager.iniciarVenda(func);
     }
     
+    //Adiciona produto na venda e retorna verdadeiro se adicionou
     public boolean adicionarProdutoVenda(int idProduto, int qtd) {
         Produto prod = produtoManager.buscaProduto(idProduto);
-        vendaManager.adicionarProdutoVenda(prod, qtd);
-        return true;
+        return vendaManager.adicionarProdutoVenda(prod, qtd);
     }
-
+    
+    //metodo zoado
     public Produto buscarProduto(int idProduto) {
         Produto prod;
         prod = produtoManager.buscaProduto(idProduto);
         return prod;
     }
-
-    public LinkedList<Produto> buscarProduto(String nomeProduto) {
-        LinkedList<Produto> listProd;
+    
+    
+    //busca produto por nome e retorna uma lista de produtos
+    public Collection<Produto> buscarProduto(String nomeProduto) {
+        Collection<Produto> listProd;
         listProd = produtoManager.buscaProduto(nomeProduto);
         return listProd;
     }
-
+    
+    //Calcula valor total da venda e retorna valor
     public double calcularValorTotal() {
         double valor;
         valor = vendaManager.calcularValorTotal();
         return valor;
     }
 
+    
+    //remove produto da venda se esse produto existir
     public boolean removerProdutoVenda(int idProduto) {
         Produto prod;
+        //retorna o produto que deseja retirar
         prod = produtoManager.buscaProduto(idProduto);
+        //verifica se o produto existe na venda,se sim remove;
+        if(vendaManager.buscaProdutoLista(prod)){
         vendaManager.removerProdutoVenda(prod);
         return true;
+        
+        }
+        // se não retorna false
+        else return false;
 
     }
-
+    
+    //Retorna lista de itens para 
+    public Collection<ItemDeVenda> retornaLista(){
+        Collection<ItemDeVenda> lista= vendaManager.retornaLista();
+    return lista;
+       }
+    
+    // tratar dps com o banco de dados
     public boolean registrarPagamento(double valorVenda) {
+            
         vendaManager.registraPagamento(valorVenda);
         return true;
 
     }
-
+    
+    // tratar depois com banco de dados
     public boolean atualizarEstoque(LinkedList<ItemDeVenda> item) {
 
         estoqueManager.atualizaEstoque(item);
         return true;
     }
-
+    // gera comprovante de venda 
     public boolean gerarComprovante() throws IOException {
         vendaManager.gerarComprovante();
-        return true;
+        return vendaManager.gerarComprovante();
     }
 
     public boolean finalizarVenda() {
         vendaManager.finalizarVenda();
         return true;
-    }
-
-    public Collection<ItemDeVenda> retornaLista() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
