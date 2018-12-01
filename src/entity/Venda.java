@@ -31,9 +31,6 @@ public class Venda implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
-    @JoinColumn(name = "idProduto")
-    private Produto produto;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemvenda")
     @JoinColumn(name = "idItemVenda")
@@ -54,60 +51,13 @@ public class Venda implements Serializable {
     public Venda() {
     }
 
-    public Venda(long idVenda, double valor, Date data, Produto produto, Collection<ItemDeVenda> itemDeVenda, Cliente cliente, Funcionario funcionario, Pagamento pagamento) {
-        this.idVenda = idVenda;
-        this.valor = valor;
-        this.data = data;
-        this.produto = produto;
-        this.itemDeVenda = itemDeVenda;
-        this.cliente = cliente;
-        this.funcionario = funcionario;
-        this.pagamento = pagamento;
-    }
-
-    public Venda(long idVenda, Date data, Cliente cliente, Funcionario funcionario) {
-        this.idVenda = idVenda;
-        this.data = data;
+    public Venda(Cliente cliente, Funcionario funcionario) {
         this.cliente = cliente;
         this.funcionario = funcionario;
     }
 
-    
-    
-    public void gerarRecibo() {
-
-    }
-
-    public void removerProdutoVenda() {
-
-    }
-
-    public void registrarProdutoVenda() {
-
-    }
-
-    public void iniciarVenda(int cpfCliente) {
-
-    }
-
-    public double adicionarProdutoVenda(int idProduto) {
-        return 0;
-    }
-
-    public void gerarComprovante(int idVenda) {
-
-    }
-
-    public double calcularValorTotal(int idVenda) {
-        return 0;
-    }
-
-    public String efetuarPagamento(int tipoPagamento, int quantia) {
-        return null;
-    }
-
-    public String validarDados(int totalVenda, String dadosCartao) {
-        return null;
+    public Venda(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public long getIdVenda() {
@@ -132,14 +82,6 @@ public class Venda implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     public Collection<ItemDeVenda> getItemDeVenda() {
@@ -172,6 +114,10 @@ public class Venda implements Serializable {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public void adicionarProdutoVenda(ItemDeVenda novo) {
+        this.itemDeVenda.add(novo);
     }
 
     

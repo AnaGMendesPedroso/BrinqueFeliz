@@ -36,8 +36,7 @@ public class Pagamento implements Serializable {
     public Pagamento() {
     }
 
-    public Pagamento(Long idPagamento, double valor, String tipoPagamento, Cliente cliente, Venda venda) {
-        this.idPagamento = idPagamento;
+    public Pagamento(double valor, String tipoPagamento, Cliente cliente, Venda venda) {
         this.valor = valor;
         this.tipoPagamento = tipoPagamento;
         this.cliente = cliente;

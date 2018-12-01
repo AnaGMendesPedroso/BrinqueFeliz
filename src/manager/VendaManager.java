@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
@@ -29,7 +31,7 @@ public class VendaManager {
     //cria um objeto Venda
     public void iniciarVenda(Cliente cli, Funcionario fun) {
 
-        ven = new Venda(fun, cli);
+        ven = new Venda(cli, fun);
 
     }
     public void iniciarVenda(Funcionario func) {
@@ -37,7 +39,7 @@ public class VendaManager {
      }
 
     public void adicionarProdutoVenda(Produto prod, int qtd) {
-        ItemDeVenda novo = new ItemDeVenda(qtd, ven, prod);
+        ItemDeVenda novo = new ItemDeVenda(qtd, prod);
         ven.adicionarProdutoVenda(novo);
 
     }
@@ -45,7 +47,8 @@ public class VendaManager {
     public double calcularValorTotal() {
         double preco = 0;
 
-        LinkedList<ItemDeVenda> listaItem = ven.getItemDeVenda();
+        Collection<ItemDeVenda> listaItem;
+        listaItem = ven.getItemDeVenda();
         for (ItemDeVenda a : listaItem) {
             preco += a.getQuantidade() * a.getProduto().getPreco();
         }
@@ -53,11 +56,10 @@ public class VendaManager {
     }
 
     public void removerProdutoVenda(Produto prod) {
-        LinkedList<ItemDeVenda> novaLista;
+        Collection<ItemDeVenda> novaLista;
         novaLista = ven.getItemDeVenda();
         novaLista.remove(prod);
         ven.setItemDeVenda(novaLista);
-
     }
 
     public void registraPagamento(double valorVenda) {
@@ -81,7 +83,7 @@ public class VendaManager {
         String nomeFuncionario = ven.getFuncionario().getNome();
         gravarArq.printf("%nNome Funcionario:");
         gravarArq.printf("%d%n", nomeFuncionario);
-        LinkedList<ItemDeVenda> lista = ven.getItemDeVenda();
+        Collection<ItemDeVenda> lista = ven.getItemDeVenda();
 
         gravarArq.printf(" Qtd ||  Nome Produto  ||    id     || Preço Unitario%n");
         for (ItemDeVenda a : lista) {
