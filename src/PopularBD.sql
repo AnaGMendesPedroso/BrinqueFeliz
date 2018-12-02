@@ -29,7 +29,7 @@ CREATE TABLE funcionario (
     );
 
 CREATE TABLE cliente (
-    idCliente numeric(11) PRIMARY KEY,
+    idCliente SERIAL PRIMARY KEY,
     nome varchar(100) NOT NULL,
     cpf numeric(11) NOT NULL, 
     telefone numeric(11),
@@ -37,12 +37,12 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE estoque (
-    idEstoque smallint PRIMARY KEY,
+    idEstoque SERIAL PRIMARY KEY,
     quantidade smallint NOT NULL
 );
 
 CREATE TABLE categoria (
-    idCategoria smallint PRIMARY KEY,
+    idCategoria SERIAL PRIMARY KEY,
     idEstoque smallint NOT NULL,
     nomeCategoria varchar(50) NOT NULL,
     descricao text
@@ -58,7 +58,7 @@ CREATE TABLE produto (
 );
 
 CREATE TABLE venda (
-    idVenda smallint PRIMARY KEY,
+    idVenda SERIAL PRIMARY KEY,
     matriculaFuncionario numeric(11) NOT NULL,
     idCliente numeric(11) NOT NULL,
     valor money NOT NULL,
@@ -67,14 +67,14 @@ CREATE TABLE venda (
 );
 
 CREATE TABLE pagamento (
-    idPagamento smallint,
+    idPagamento SERIAL PRIMARY KEY,
     idVenda smallint NOT NULL,
     valor money NOT NULL,
     tipoPgto varchar(20) NOT NULL
 );
 
 CREATE TABLE itemvenda (
-    idItemVenda smallint,
+    idItemVenda  SERIAL ,
     idVenda smallint NOT NULL,
     codigoBarras numeric(11) NOT NULL,
     quantidade smallint NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE produtofornecedor (
 );
 
 CREATE TABLE endereco (
-    idEndereco smallint  PRIMARY KEY,
+    idEndereco  SERIAL  PRIMARY KEY,
     estado varchar(2),
     cidade varchar(100),
     rua varchar(100),
@@ -110,7 +110,7 @@ CREATE TABLE endereco (
 );
 
 CREATE TABLE empresa (
-    idEmpresa smallint PRIMARY KEY,
+    idEmpresa  SERIAL  PRIMARY KEY,
     cnpj numeric(14) NOT NULL UNIQUE,
     nomeFantasia varchar(100) NOT NULL,
     razaoSocial varchar(100),
