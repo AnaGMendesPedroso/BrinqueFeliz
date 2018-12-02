@@ -1,17 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+**       Essa classe tem que ser iniciada com um funcionario e um cliente
+**       TelaVenda view = new TelaVenda();
+**       view.startVenda(funcionario, cliente);
+**
+**
  */
 package views;
 
 import entity.*;
 import controller.*;
-import java.util.Collection;
+import java.awt.Color;
 import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -20,41 +25,15 @@ import javax.swing.JTextArea;
 public class TelaVenda extends javax.swing.JFrame {
     
     ControllerVenda venda = new ControllerVenda();
-    LinkedList<Produto> listProduto;
-    
-    /*
-    ** Lista para teste
-    
-    LinkedList<Produto> listTestePRODUTO;
-    public LinkedList<Produto> instanciaTestePRODUTO(){
-        listTestePRODUTO = new LinkedList<>();
-        listTestePRODUTO.add(new Produto(2, "Barbie", 100.2));
-        listTestePRODUTO.add(new Produto(3, "Nerf", 325.6));
-        listTestePRODUTO.add(new Produto(4, "Caminhao", 53.4));
-        listTestePRODUTO.add(new Produto(5, "Aviao", 214.8));
-        listTestePRODUTO.add(new Produto(6, "Barco", 100.0));
-        listTestePRODUTO.add(new Produto(7, "Boomerang", 19.9));
-        return listTestePRODUTO;
-    }
-    
-    Collection<ItemVenda> listTesteITENS;
-    public LinkedList<ItemVenda> instanciaTesteITENS(){
-        listTesteITENS = new LinkedList<>();
-        listTesteITENS.add(new ItemVenda(new Produto(2, "Barbie", 100.2)));
-        listTesteITENS.add(new ItemVenda(new Produto(3, "Nerf", 325.6)));
-        listTesteITENS.add(new ItemVenda(new Produto(4, "Caminhao", 53.4)));
-        listTesteITENS.add(new ItemVenda(new Produto(5, "Aviao", 214.8)));
-        listTesteITENS.add(new ItemVenda(new Produto(6, "Barco", 100.0)));
-        listTesteITENS.add(new ItemVenda(new Produto(7, "Boomerang", 19.9)));
-        return (LinkedList<ItemVenda>)listTesteITENS;
-    }
-    */
-    
-    /**
-     * Creates new form OlaMundoJava
-     */
+
     public TelaVenda() {
         initComponents();
+    }
+    
+    public TelaVenda(Funcionario funcionario, Cliente cliente) {
+        initComponents();
+        setFoncionario(funcionario, cliente);
+        setLocationRelativeTo(null); 
     }
 
     /**
@@ -81,10 +60,17 @@ public class TelaVenda extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         cargo = new javax.swing.JLabel();
         nomeFuncionario = new javax.swing.JLabel();
+        clienteNOME = new javax.swing.JLabel();
+        idCliente = new javax.swing.JLabel();
         qtd = new javax.swing.JSpinner();
         finalizarVenda = new javax.swing.JButton();
         cancelarVenda = new javax.swing.JButton();
         valorTotalLABEL = new javax.swing.JLabel();
+        qtdLABEL = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        idREMOVER = new javax.swing.JTextArea();
+        removerProdutoBOTAO = new javax.swing.JButton();
+        idRemoverTEXTO = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,6 +86,8 @@ public class TelaVenda extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         codDeBarrasLABEL.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         codDeBarrasLABEL.setForeground(new java.awt.Color(50, 50, 50));
@@ -133,33 +121,33 @@ public class TelaVenda extends javax.swing.JFrame {
         listaProdutos.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         listaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Qtd", "Nome", "Preço Uni.", "Preço Parcial"
+                "Qtd", "id", "Nome", "Preço Uni.", "Preço Parcial"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -175,9 +163,17 @@ public class TelaVenda extends javax.swing.JFrame {
         cargo.setForeground(new java.awt.Color(250, 250, 250));
         cargo.setText("Vendedor");
 
-        nomeFuncionario.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        nomeFuncionario.setFont(new java.awt.Font("Noto Sans", 1, 20)); // NOI18N
         nomeFuncionario.setForeground(new java.awt.Color(250, 250, 250));
         nomeFuncionario.setText("Nome Funcionario");
+
+        clienteNOME.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        clienteNOME.setForeground(new java.awt.Color(250, 250, 250));
+        clienteNOME.setText("Cliente Visitante");
+
+        idCliente.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        idCliente.setForeground(new java.awt.Color(250, 250, 250));
+        idCliente.setText("IdCliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,6 +182,8 @@ public class TelaVenda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clienteNOME)
+                    .addComponent(idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
@@ -197,8 +195,14 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addComponent(nomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(clienteNOME)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        qtd.setValue(1);
 
         finalizarVenda.setBackground(new java.awt.Color(0, 255, 0));
         finalizarVenda.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
@@ -224,6 +228,30 @@ public class TelaVenda extends javax.swing.JFrame {
         valorTotalLABEL.setForeground(new java.awt.Color(50, 50, 50));
         valorTotalLABEL.setText("R$ 0.0");
 
+        qtdLABEL.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        qtdLABEL.setForeground(new java.awt.Color(50, 50, 50));
+        qtdLABEL.setText("qtd");
+        qtdLABEL.setToolTipText("");
+
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        idREMOVER.setColumns(20);
+        idREMOVER.setRows(5);
+        jScrollPane5.setViewportView(idREMOVER);
+
+        removerProdutoBOTAO.setText("Remover");
+        removerProdutoBOTAO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerProdutoBOTAOActionPerformed(evt);
+            }
+        });
+
+        idRemoverTEXTO.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        idRemoverTEXTO.setForeground(new java.awt.Color(50, 50, 50));
+        idRemoverTEXTO.setText("id");
+        idRemoverTEXTO.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,28 +268,40 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 292, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(nomeNomeLABEL)
-                                    .addComponent(codDeBarrasLABEL))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(buscar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cancelarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(finalizarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(valorTotalLABEL)
-                                .addGap(29, 29, 29)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 292, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(nomeNomeLABEL)
+                                            .addComponent(codDeBarrasLABEL))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(buscar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(qtdLABEL)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(cancelarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(finalizarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(valorTotalLABEL)
+                                        .addGap(29, 29, 29))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(idRemoverTEXTO)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removerProdutoBOTAO)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -281,12 +321,21 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buscar)
-                    .addComponent(qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(qtdLABEL)))
                 .addGap(50, 50, 50)
-                .addComponent(listaDeCompraLABEL)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(listaDeCompraLABEL)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removerProdutoBOTAO)))
+                    .addComponent(idRemoverTEXTO))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(valorTotalLABEL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -298,59 +347,67 @@ public class TelaVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public void setTamanhoTabelaPopUp(){
+    private void setFoncionario(Funcionario funcionario, Cliente cliente){
+        nomeFuncionario.setText(funcionario.getNome());
+        if(funcionario.isEhAdministrador())
+            cargo.setText("Administrador");
+        clienteNOME.setText("Cliente: " + cliente.getNome());
+        idCliente.setText("ID: "+ cliente.getIdCliente());
+    }
+    
+    private void setTamanhoTabelaPopUp(){
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
         new String [] {
-            "Id", "Nome", "Preco", "Title 4"
+            "Id", "Nome", "Preco"
         }));
     }
     
-    String idString = "";
+    private String idString = "";
     private String listaProdutosPOPUP(LinkedList<Produto> list){
         idString = "";
         //criar POPUP
@@ -382,7 +439,7 @@ public class TelaVenda extends javax.swing.JFrame {
         for (Produto prod : list) {
             jTable1.setValueAt(prod.getCodigoBarras(), linha, 0);
             jTable1.setValueAt(prod.getNomeProduto(), linha, 1);
-            jTable1.setValueAt(prod.getPreco(), linha, 2);
+            jTable1.setValueAt("R$ "+prod.getPreco(), linha, 2);
             linha++;
         }
              
@@ -396,12 +453,52 @@ public class TelaVenda extends javax.swing.JFrame {
         return idString;
         
     }
-
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        int id = 0;
-        Collection<ItemVenda> listProdutoVenda;
-        Produto produto;
+    
+    private void mensagemPopUp(String mensagem){
+        JFrame execao = new JFrame();   
+        execao.setSize(500, 200);        
+        execao.setLocationRelativeTo(null); 
+        execao.setVisible(true);
         
+        JLabel erro = new JLabel();
+        erro.setText(mensagem);
+        erro.setBounds(125,0,250,100);
+        erro.setFont(new java.awt.Font("Dialog", 1, 14));
+        erro.setHorizontalAlignment(SwingConstants.CENTER);
+        execao.add(erro);
+        
+        JButton voltar = new javax.swing.JButton("OK");
+        voltar.setBounds(200,100,100, 40);
+        execao.add(voltar);
+        
+        JPanel painel = new JPanel();
+        painel.setSize(500, 200);
+        painel.setBackground(Color.white);
+        execao.add(painel);
+        
+        voltar.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            execao.setVisible(false);
+        });
+    }
+    
+    private void setTabelaDeVenda(LinkedList<ItemDeVenda> listProduto){
+        Produto produto;
+        int linha=0;
+        for (ItemDeVenda item : listProduto) {
+            produto = item.getProduto();
+            listaProdutos.setValueAt(produto.getQtdEstoque(), linha, 0);
+            listaProdutos.setValueAt(produto.getCodigoBarras(), linha, 1);
+            listaProdutos.setValueAt(produto.getNomeProduto(), linha, 2);
+            listaProdutos.setValueAt("R$"+produto.getPreco(), linha, 3);
+            listaProdutos.setValueAt("R$"+(produto.getPreco()*((int)qtd.getValue())), linha, 4);
+            linha++;
+        }
+    }
+    
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        LinkedList<Produto> listProduto;
+        int id = 0;
+
         //pega String do campo de codigo de barras
         if(!codDeBarrasCAMPO.getText().equals("")){
            String idCampo = codDeBarrasCAMPO.getText();
@@ -414,61 +511,207 @@ public class TelaVenda extends javax.swing.JFrame {
         else if(!nomeTEXTO.getText().equals("")){
             String nomeCampo = nomeTEXTO.getText();
             listProduto = (LinkedList<Produto>) venda.buscarProduto(nomeCampo);
-            id = Integer.parseInt(listaProdutosPOPUP(listProduto));
+                
+                if(listProduto != null)
+                    id = Integer.parseInt(listaProdutosPOPUP(listProduto));
+                else
+                    mensagemPopUp("Produto não encontrado");     
         }
         
         if(id!=0)
             venda.adicionarProdutoVenda(id, (int) qtd.getValue());
         
-        listProdutoVenda = venda.retornaLista();
-        int linha=0;
-      
-        //listProdutoVenda = instanciaTesteITENS();
-        for (ItemVenda item : listProdutoVenda) {
-            produto = item.getProduto();
-            listaProdutos.setValueAt(produto.getQtdEstoque(), linha, 0);
-            listaProdutos.setValueAt(produto.getNomeProduto(), linha, 1);
-            listaProdutos.setValueAt("R$"+produto.getPreco(), linha, 2);
-            listaProdutos.setValueAt("R$"+(produto.getPreco()*((int)qtd.getValue())), linha, 3);
-            linha++;
-        }
+        setTabelaDeVenda((LinkedList<ItemDeVenda>)venda.retornaLista());
+        
+        //atualiza o valor total na view
+        valorTotalLABEL.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
     }//GEN-LAST:event_buscarActionPerformed
-
+    
+    private String formaDePagamento;
+    double valor = 0.0;
     private void finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarVendaActionPerformed
+        formaDePagamento = "";
+        //criar POPUP
         JFrame popUpPagamento = new JFrame();
         
-        popUpPagamento.setSize(500, 700);        
-        popUpPagamento.setTitle("Forma de Pagamento");
+        JButton dinheiro             = new javax.swing.JButton("DINHEIRO");
+        JButton cartaoCredito        = new javax.swing.JButton("CARTÃO DE CRÉDITO");
+        JButton cartaoDebito         = new javax.swing.JButton("CARTÃO DE DÉBITO");
+        JButton cheque               = new javax.swing.JButton("CHEQUE");
+        JButton calcularTrouco       = new javax.swing.JButton("CALCULAR TROCO");
+        JButton cancelarVendaPopUp   = new javax.swing.JButton("VOLTAR");
+        JButton finalizarVendaPopUp  = new javax.swing.JButton("EFETUAR PAGAMENTO");
+        
+        JPanel painel = new JPanel();
+        painel.setSize(500, 600);
+        painel.setBackground(Color.white);
+        
+        popUpPagamento.setSize(500, 600);        
+        popUpPagamento.setTitle("Formas de Pagamento");
         popUpPagamento.setLocationRelativeTo(null); // para aparecer no meio da tela
         popUpPagamento.setVisible(true);
+  
+        dinheiro.setBounds(130,100,240, 50);
+        cartaoCredito.setBounds(130,160,240, 50);
+        cartaoDebito.setBounds(130,220,240, 50);
+        cheque.setBounds(130,280,240, 50);
         
-        JButton dinheiro        = new javax.swing.JButton("DINHEIRO");
-        JButton cartaoCredito   = new javax.swing.JButton("CARTÃO DE CRÉDITO");
-        JButton cartaoDebito    = new javax.swing.JButton("CARTÃO DE DÉBITO");
-        JButton cheque          = new javax.swing.JButton("CHEQUE");
+        calcularTrouco.setBounds(130,350,240, 40);
+        calcularTrouco.setBackground(new java.awt.Color(0,206,209));
+        calcularTrouco.setFont(new java.awt.Font("Noto Sans", 1, 18));
+        calcularTrouco.setForeground(new java.awt.Color(255, 255, 255));
+        calcularTrouco.setVisible(false);
         
-        dinheiro.setBounds(80,700,240, 50);
-        cartaoCredito.setBounds(290,700,100, 50);
-        cartaoDebito.setBounds(290,700,100, 50);
-        cheque.setBounds(290,100,20, 50);
-
+        finalizarVendaPopUp.setBounds(130,350,240, 40);
+        finalizarVendaPopUp.setBackground(Color.green);
+        finalizarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
+        finalizarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
+        finalizarVendaPopUp.setVisible(false);
+        
+        cancelarVendaPopUp.setBounds(150,391,200, 40);
+        cancelarVendaPopUp.setBackground(new java.awt.Color(240,230,140));
+        cancelarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
+        cancelarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
+        
+        JLabel pagamentoDinheiroValorTEXTO = new javax.swing.JLabel();
+        pagamentoDinheiroValorTEXTO.setBounds(175, 0, 150, 100);
+        pagamentoDinheiroValorTEXTO.setFont(new java.awt.Font("Dialog", 1, 18)); 
+        pagamentoDinheiroValorTEXTO.setText("VALOR TOTAL");
+        pagamentoDinheiroValorTEXTO.setHorizontalAlignment(SwingConstants.CENTER);
+        pagamentoDinheiroValorTEXTO.setVisible(false);
+        
+        
+        JLabel pagamentoDinheiroVALOR = new javax.swing.JLabel();
+        pagamentoDinheiroVALOR.setBounds(160, 25, 150, 100);
+        pagamentoDinheiroVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
+        pagamentoDinheiroVALOR.setHorizontalAlignment(SwingConstants.CENTER);
+        pagamentoDinheiroVALOR.setVisible(false);
+        
+        JLabel totalRecebidoTEXTO = new javax.swing.JLabel();
+        totalRecebidoTEXTO.setBounds(140, 80, 220, 100);
+        totalRecebidoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));  
+        totalRecebidoTEXTO.setText("VALOR TOTAL RECEBIDO:");
+        totalRecebidoTEXTO.setVisible(false);
+        
+        JTextArea totalRecebidoVALOR = new javax.swing.JTextArea();
+        totalRecebidoVALOR.setBounds(150, 160, 200, 70);
+        totalRecebidoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));  
+        totalRecebidoVALOR.setVisible(false);
+        
+        JLabel pagamentoDinheiroTrocoTEXTO = new javax.swing.JLabel();
+        pagamentoDinheiroTrocoTEXTO.setBounds(160, 220, 150, 100);
+        pagamentoDinheiroTrocoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18)); 
+        pagamentoDinheiroTrocoTEXTO.setText("TROCO:");
+        pagamentoDinheiroTrocoTEXTO.setVisible(false);
+        
+        
+        JLabel pagamentoDinheiroTrocoVALOR = new javax.swing.JLabel();
+        pagamentoDinheiroTrocoVALOR.setBounds(160, 250, 250, 100);
+        pagamentoDinheiroTrocoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
+        pagamentoDinheiroTrocoVALOR.setVisible(false);
+        
+        popUpPagamento.add(finalizarVendaPopUp);
+        popUpPagamento.add(pagamentoDinheiroTrocoVALOR);
+        popUpPagamento.add(pagamentoDinheiroTrocoTEXTO);
+        popUpPagamento.add(totalRecebidoVALOR);
+        popUpPagamento.add(totalRecebidoTEXTO);
+        popUpPagamento.add(pagamentoDinheiroValorTEXTO);
+        popUpPagamento.add(pagamentoDinheiroVALOR);    
         popUpPagamento.add(dinheiro);
-        /*popUpPagamento.add(cartaoCredito);
+        popUpPagamento.add(cartaoCredito);
         popUpPagamento.add(cartaoDebito);
-        popUpPagamento.add(cheque);*/
+        popUpPagamento.add(cheque);
+        popUpPagamento.add(calcularTrouco);
+        popUpPagamento.add(cancelarVendaPopUp);
+        popUpPagamento.add(painel);
+
+        dinheiro.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            formaDePagamento = "dinheiro";       
+            dinheiro.setEnabled(false);
+            
+            dinheiro.setVisible(false);
+            cartaoCredito.setVisible(false);
+            cartaoDebito.setVisible(false);
+            cheque.setVisible(false);
+            calcularTrouco.setVisible(true);
+            
+            try{
+                pagamentoDinheiroVALOR.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
+            }catch(NullPointerException e){
+                popUpPagamento.setVisible(false);
+                mensagemPopUp("Não há lista de vendas");
+            }
+            
+            pagamentoDinheiroValorTEXTO.setVisible(true);
+            pagamentoDinheiroVALOR.setVisible(true);
+            totalRecebidoTEXTO.setVisible(true);
+            totalRecebidoVALOR.setVisible(true);
+            pagamentoDinheiroTrocoTEXTO.setVisible(true);
+            pagamentoDinheiroTrocoVALOR.setVisible(true);
+        });
+        
+        cartaoCredito.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            formaDePagamento = "cartaoCredito";
+            cartaoCredito.setEnabled(false);
+            calcularTrouco.setEnabled(true);
+        });
+        
+        cartaoDebito.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            formaDePagamento = "cartaoDebito";
+            cartaoDebito.setEnabled(false);
+            calcularTrouco.setEnabled(true);
+        });
+        
+        cheque.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            formaDePagamento = "cheque";
+            cheque.setEnabled(false);
+            calcularTrouco.setEnabled(true);
+        });
+        
+        calcularTrouco.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            try{
+            valor = Double.parseDouble(totalRecebidoVALOR.getText());
+            if(valor >= venda.calcularValorTotal()){
+                pagamentoDinheiroTrocoVALOR.setText("R$ "+(valor - venda.calcularValorTotal()));
+                finalizarVendaPopUp.setVisible(true);
+            }
+            else
+                mensagemPopUp("Valor insuficiente");
+            }catch(NumberFormatException e){
+                mensagemPopUp("Valor insuficiente");
+            }
+        }); 
+        
+        finalizarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            venda.finalizarVenda();
+            if(venda.finalizarVenda()){
+                popUpPagamento.setVisible(false);
+                mensagemPopUp("Venda Efetuada com sucesso");
+                venda.gerarComprovante();
+            }else
+                mensagemPopUp("Houve um erro ao efetuar pagamento");
+        });
+        
+        cancelarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
+            popUpPagamento.setVisible(false);
+        });
         
         
-        JTextArea textArea = new JTextArea();
-                
-        
+        /*
+        ** Chamar metodo enviando o tipo do pagamento
+        */
     }//GEN-LAST:event_finalizarVendaActionPerformed
 
     private void cancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarVendaActionPerformed
-        // TODO add your handling code here:
+       venda.finalizarVenda();
     }//GEN-LAST:event_cancelarVendaActionPerformed
+
+    private void removerProdutoBOTAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutoBOTAOActionPerformed
+        venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
+        setTabelaDeVenda((LinkedList<ItemDeVenda>)venda.retornaLista());
+    }//GEN-LAST:event_removerProdutoBOTAOActionPerformed
     
-   
-    public void starViews() {
+    public void startVenda(Funcionario funcionario, Cliente cliente) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -494,10 +737,10 @@ public class TelaVenda extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new TelaVenda().setVisible(true);
+            new TelaVenda(funcionario, cliente).setVisible(true);
         });
     }
 
@@ -505,14 +748,19 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JButton buscar;
     private javax.swing.JButton cancelarVenda;
     private javax.swing.JLabel cargo;
+    private javax.swing.JLabel clienteNOME;
     private javax.swing.JTextArea codDeBarrasCAMPO;
     private javax.swing.JLabel codDeBarrasLABEL;
     private javax.swing.JButton finalizarVenda;
+    private javax.swing.JLabel idCliente;
+    private javax.swing.JTextArea idREMOVER;
+    private javax.swing.JLabel idRemoverTEXTO;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel listaDeCompraLABEL;
     private javax.swing.JTable listaProdutos;
@@ -520,6 +768,8 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel nomeNomeLABEL;
     private javax.swing.JTextArea nomeTEXTO;
     private javax.swing.JSpinner qtd;
+    private javax.swing.JLabel qtdLABEL;
+    private javax.swing.JButton removerProdutoBOTAO;
     private javax.swing.JLabel valorTotalLABEL;
     // End of variables declaration//GEN-END:variables
 }
