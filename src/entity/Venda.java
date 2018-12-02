@@ -12,7 +12,7 @@ public class Venda implements Serializable {
 
     private double valor;
 
-    private Date data;
+    private String data;
 
     private Collection<ItemDeVenda> itemDeVenda;
 
@@ -50,11 +50,11 @@ public class Venda implements Serializable {
         this.valor = valor;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
