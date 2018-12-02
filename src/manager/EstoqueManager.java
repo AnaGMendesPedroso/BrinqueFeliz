@@ -5,42 +5,52 @@
  */
 package manager;
 
-import entity.Categoria;
-import entity.Estoque;
 import entity.ItemDeVenda;
 import entity.Produto;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author anapedroso
  */
-public class EstoqueManager {
+public class EstoqueManager extends ConexaoBD {
 
     
 
     public EstoqueManager() {
+        super();
     }
 
     public void atualizaEstoque(LinkedList<ItemDeVenda> item) {
-        //para cada item na lista de itens vendidos...
+      int qtdProdutosVendidos = 0;
+   
         for (ItemDeVenda a : item) {
-            //pega o produto do item,...
             Produto aux = a.getProduto();
-            //pega a quantidade vendida do item,...
-            int qtd = a.getQuantidade();
+            qtdProdutosVendidos = a.getQuantidade();
+ 
+            try {
+                Statement statement = conn.createStatement();
+            String sql1 = "SELECT  qtdestoque FROM brinquefelizschema.produto WHERE codigobarras = '" 
+                    + aux.getCodigoBarras() +"'";
+            System.out.println(sql1);          
             
-            //busca o produto no estoque(Banco de dados)
-            /*
-            
-            implementar codigo:
-            buscar produto estoque
-            alterar quantidade de produto no estoque:
-            quantidade atual menos quantidade vendida;
-            
-            */
-            
-
+            ResultSet resultado = statement.executeQuery(sql1);
+           int qtdFinal = resultado.getInt("qtdestoque") - qtdProdutosVendidos;
+           
+           String sql2 = "UPDATE  brinquefelizschema.produto SET  qtdestoque ='"+qtdFinal+"' WHERE codigobarras = '"+aux.getCodigoBarras()+"'";
+           System.out.println(sql2);          
+           
+           String sql3 = "UPDATE  brinquefelizschema.estoque SET quantidade = '"+qtdFinal+"'";
+        } catch (SQLException ex) {
+              Logger.getLogger(EstoqueManager.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        
+            System.out.println("Estoque do produto " +aux.getNomeProduto()+" atualizado ");
         }
 
     }
