@@ -2,7 +2,7 @@ package controller;
 
 import entity.Cliente;
 import entity.Funcionario;
-import entity.ItemDeVenda;
+import entity.ItemVenda;
 import entity.Produto;
 import java.io.IOException;
 import java.util.Collection;
@@ -84,8 +84,8 @@ public class ControllerVenda {
     }
     
     //Retorna lista de itens para 
-    public Collection<ItemDeVenda> retornaLista(){
-        Collection<ItemDeVenda> lista= vendaManager.retornaLista();
+    public Collection<ItemVenda> retornaLista(){
+        Collection<ItemVenda> lista= vendaManager.retornaLista();
     return lista;
        }
     
@@ -98,7 +98,7 @@ public class ControllerVenda {
     }
     
     // tratar depois com banco de dados
-    public boolean atualizarEstoque(LinkedList<ItemDeVenda> item) {
+    public boolean atualizarEstoque(LinkedList<ItemVenda> item) {
 
         estoqueManager.atualizaEstoque(item);
         return true;

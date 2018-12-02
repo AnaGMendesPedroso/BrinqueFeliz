@@ -37,16 +37,16 @@ public class TelaVenda extends javax.swing.JFrame {
         return listTestePRODUTO;
     }
     
-    Collection<ItemDeVenda> listTesteITENS;
-    public LinkedList<ItemDeVenda> instanciaTesteITENS(){
+    Collection<ItemVenda> listTesteITENS;
+    public LinkedList<ItemVenda> instanciaTesteITENS(){
         listTesteITENS = new LinkedList<>();
-        listTesteITENS.add(new ItemDeVenda(new Produto(2, "Barbie", 100.2)));
-        listTesteITENS.add(new ItemDeVenda(new Produto(3, "Nerf", 325.6)));
-        listTesteITENS.add(new ItemDeVenda(new Produto(4, "Caminhao", 53.4)));
-        listTesteITENS.add(new ItemDeVenda(new Produto(5, "Aviao", 214.8)));
-        listTesteITENS.add(new ItemDeVenda(new Produto(6, "Barco", 100.0)));
-        listTesteITENS.add(new ItemDeVenda(new Produto(7, "Boomerang", 19.9)));
-        return (LinkedList<ItemDeVenda>)listTesteITENS;
+        listTesteITENS.add(new ItemVenda(new Produto(2, "Barbie", 100.2)));
+        listTesteITENS.add(new ItemVenda(new Produto(3, "Nerf", 325.6)));
+        listTesteITENS.add(new ItemVenda(new Produto(4, "Caminhao", 53.4)));
+        listTesteITENS.add(new ItemVenda(new Produto(5, "Aviao", 214.8)));
+        listTesteITENS.add(new ItemVenda(new Produto(6, "Barco", 100.0)));
+        listTesteITENS.add(new ItemVenda(new Produto(7, "Boomerang", 19.9)));
+        return (LinkedList<ItemVenda>)listTesteITENS;
     }
     */
     
@@ -399,7 +399,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         int id = 0;
-        Collection<ItemDeVenda> listProdutoVenda;
+        Collection<ItemVenda> listProdutoVenda;
         Produto produto;
         
         //pega String do campo de codigo de barras
@@ -424,7 +424,7 @@ public class TelaVenda extends javax.swing.JFrame {
         int linha=0;
       
         //listProdutoVenda = instanciaTesteITENS();
-        for (ItemDeVenda item : listProdutoVenda) {
+        for (ItemVenda item : listProdutoVenda) {
             produto = item.getProduto();
             listaProdutos.setValueAt(produto.getQtdEstoque(), linha, 0);
             listaProdutos.setValueAt(produto.getNomeProduto(), linha, 1);

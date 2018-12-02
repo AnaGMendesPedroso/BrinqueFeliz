@@ -5,7 +5,7 @@
  */
 package manager;
 
-import entity.ItemDeVenda;
+import entity.ItemVenda;
 import entity.Produto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,10 +26,10 @@ public class EstoqueManager extends ConexaoBD {
         super();
     }
 
-    public void atualizaEstoque(LinkedList<ItemDeVenda> item) {
+    public void atualizaEstoque(LinkedList<ItemVenda> item) {
       int qtdProdutosVendidos = 0;
    
-        for (ItemDeVenda a : item) {
+        for (ItemVenda a : item) {
             Produto aux = a.getProduto();
             qtdProdutosVendidos = a.getQuantidade();
  

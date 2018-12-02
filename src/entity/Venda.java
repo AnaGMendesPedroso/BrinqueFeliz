@@ -14,7 +14,7 @@ public class Venda implements Serializable {
 
     private String data;
 
-    private Collection<ItemDeVenda> itemDeVenda;
+    private Collection<ItemVenda> itemDeVenda;
 
     private Cliente cliente;
 
@@ -58,11 +58,11 @@ public class Venda implements Serializable {
         this.data = data;
     }
 
-    public Collection<ItemDeVenda> getItemDeVenda() {
+    public Collection<ItemVenda> getItemVenda() {
         return itemDeVenda;
     }
 
-    public void setItemDeVenda(Collection<ItemDeVenda> itemDeVenda) {
+    public void setItemVenda(Collection<ItemVenda> itemDeVenda) {
         this.itemDeVenda = itemDeVenda;
     }
 
@@ -90,7 +90,7 @@ public class Venda implements Serializable {
         this.pagamento = pagamento;
     }
 
-    public void adicionarProdutoVenda(ItemDeVenda novo) {
+    public void adicionarProdutoVenda(ItemVenda novo) {
         this.itemDeVenda.add(novo);
     }
 

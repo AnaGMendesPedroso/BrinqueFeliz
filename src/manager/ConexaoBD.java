@@ -13,17 +13,14 @@ import java.sql.SQLException;
  * @author anapedroso
  */
 public abstract class ConexaoBD {
-    private final String database = "jdbc:postgresql://localhost:5432/brinquefeliz";
-    private final String user = "root";
-    private final String password = "root";
+    private final String url = "jdbc:postgresql://localhost:5432/brinquefeliz?user=root&password=root";
     
      protected Connection conn;
 
     public ConexaoBD() {
         try {
 
-            conn = DriverManager.getConnection(database + ";user="
-                    + user + ";password=" + password);
+           conn = DriverManager.getConnection(url);
 
             System.out.println("Conectado!");
 
