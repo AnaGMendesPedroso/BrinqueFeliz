@@ -7,6 +7,7 @@ package manager;
 import entity.Categoria;
 import entity.Cliente;
 import entity.Produto;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
@@ -33,8 +34,9 @@ public class ProdutoManager extends ConexaoBD {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.produto WHERE codigobarras = '" + codigobarras + "'";
             System.out.println(sql);
-            prod = (Produto) statement.executeQuery(sql);
-            
+            ResultSet resultado = statement.executeQuery(sql);
+            // converter resultado para Produto aqui e onde precisar
+            //resultado.
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }

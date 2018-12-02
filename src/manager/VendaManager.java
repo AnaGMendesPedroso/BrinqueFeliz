@@ -9,7 +9,7 @@ import entity.Cliente;
 import entity.Funcionario;
 import entity.Venda;
 import entity.Pagamento;
-import entity.ItemDeVenda;
+import entity.ItemVenda;
 import entity.Produto;
 import java.util.LinkedList;
 import java.io.FileWriter;
@@ -54,7 +54,7 @@ public class VendaManager extends ConexaoBD {
         //verifica se a quantidade atual é maior ou igual a quantidade a ser vendida
         if (qtdAtual >= qtd) {
             //se sim, coloca o novo item de venda
-            ItemDeVenda novo = new ItemDeVenda(qtd, prod);
+            ItemVenda novo = new ItemVenda(qtd, prod);
             ven.adicionarProdutoVenda(novo);
             return true;
         } //se não, retorna false indicando que item não foi inserido
@@ -67,19 +67,19 @@ public class VendaManager extends ConexaoBD {
     public double calcularValorTotal() {
         double preco = 0;
 
-        Collection<ItemDeVenda> listaItem;
-        listaItem = ven.getItemDeVenda();
-        for (ItemDeVenda a : listaItem) {
+        Collection<ItemVenda> listaItem;
+        listaItem = ven.getItemVenda();
+        for (ItemVenda a : listaItem) {
             preco += a.getQuantidade() * a.getProduto().getPreco();
         }
         return preco;
     }
 
     public void removerProdutoVenda(Produto prod) {
-        Collection<ItemDeVenda> novaLista;
-        novaLista = ven.getItemDeVenda();
+        Collection<ItemVenda> novaLista;
+        novaLista = ven.getItemVenda();
         novaLista.remove(prod);
-        ven.setItemDeVenda(novaLista);
+        ven.setItemVenda(novaLista);
     }
     // registra pagamento no banco e retorna se registrou
     public void registraPagamento(double valorVenda) {
@@ -105,10 +105,10 @@ public class VendaManager extends ConexaoBD {
             String nomeFuncionario = ven.getFuncionario().getNome();
             gravarArq.printf("%nNome Funcionario:");
             gravarArq.printf("%d%n", nomeFuncionario);
-            Collection<ItemDeVenda> lista = ven.getItemDeVenda();
+            Collection<ItemVenda> lista = ven.getItemVenda();
 
             gravarArq.printf(" Qtd ||  Nome Produto  ||    id     || Preço Unitario%n");
-            for (ItemDeVenda a : lista) {
+            for (ItemVenda a : lista) {
                 String nome = a.getProduto().getNomeProduto();
                 int id = a.getProduto().getCodigoBarras();
                 int qtd = a.getQuantidade();
@@ -128,16 +128,16 @@ public class VendaManager extends ConexaoBD {
         }
     }
 
-    public Collection<ItemDeVenda> retornaLista() {
-        Collection<ItemDeVenda> lista = ven.getItemDeVenda();
+    public Collection<ItemVenda> retornaLista() {
+        Collection<ItemVenda> lista = ven.getItemVenda();
         return lista;
     }
 
     // busca produto dentro da venda iniciada e retorna se o produto existe ou não
     public boolean buscaProdutoLista(Produto prod) {
-        Collection<ItemDeVenda> lista = ven.getItemDeVenda();
+        Collection<ItemVenda> lista = ven.getItemVenda();
         boolean teste = false;
-        for (ItemDeVenda a : lista) {
+        for (ItemVenda a : lista) {
             if (a.getProduto().equals(prod)) {
                 teste = true;
             }
@@ -148,9 +148,9 @@ public class VendaManager extends ConexaoBD {
     
     public boolean finalizarVenda() {
         // pega a quantidade de itens da venda
-        Collection<ItemDeVenda> list= ven.getItemDeVenda();
+        Collection<ItemVenda> list= ven.getItemVenda();
         int quantidade = 0;
-        for(ItemDeVenda a: list) quantidade+=a.getQuantidade();
+        for(ItemVenda a: list) quantidade+=a.getQuantidade();
 
         boolean teste = true;
         try{
@@ -181,8 +181,8 @@ public class VendaManager extends ConexaoBD {
           
             
             //insere cada item da lista no banco de dados
-            for(ItemDeVenda a: list){
-                String sqlItem ="INSERT INTO ItemDeVenda(idVenda, codigoBarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
+            for(ItemVenda a: list){
+                String sqlItem ="INSERT INTO ItemVenda(idVenda, codigoBarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
             statement.executeUpdate(sqlItem);
             }
             

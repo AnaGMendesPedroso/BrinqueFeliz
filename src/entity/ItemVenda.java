@@ -2,7 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
-public class ItemDeVenda implements Serializable {
+public class ItemVenda implements Serializable {
 
     private Long idItemVenda;
 
@@ -11,10 +11,10 @@ public class ItemDeVenda implements Serializable {
 
     private Produto produto;
 
-    public ItemDeVenda() {
+    public ItemVenda() {
     }
 
-    public ItemDeVenda(int quantidade, Produto produto) {
+    public ItemVenda(int quantidade, Produto produto) {
         this.quantidade = quantidade;
         this.produto = produto;
     }
