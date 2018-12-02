@@ -48,6 +48,10 @@ public class Funcionario implements Serializable {
         this.endereco = endereco;
     }
 
+    public Funcionario(String nome, int matricula, String ehADM) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getMatricula() {
         return matricula;
     }

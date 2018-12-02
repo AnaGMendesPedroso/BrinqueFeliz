@@ -22,11 +22,12 @@ import java.util.Collections;
  *
  * @author anapedroso
  */
-public class VendaManager {
+public class VendaManager extends ConexaoBD {
 
     private Venda ven;
 
     public VendaManager() {
+        super();
     }
     //cria um objeto Venda
     public void iniciarVenda(Cliente cli, Funcionario fun) {

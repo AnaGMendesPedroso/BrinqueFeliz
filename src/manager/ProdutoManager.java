@@ -5,42 +5,57 @@
  */
 package manager;
 import entity.Categoria;
+import entity.Cliente;
 import entity.Produto;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author anapedroso
  */
-public class ProdutoManager {
+public class ProdutoManager extends ConexaoBD {
 
-    public Produto buscaProduto(int idProduto) {
-       
-       /*
-       implementar codigo
-       buscar produto por id no banco
-       se produto existir retorna produto
-       se não retorna null
-       */
-       //prod recebe produto buscado
+    public ProdutoManager() {
+        super();
+    }
+    
+    
+
+    public Produto buscaProduto(int codigobarras) {
        Produto prod=null;
+       
+       try {
+            Statement statement = conn.createStatement();
+            String sql = "SELECT * FROM brinquefelizschema.produto WHERE codigobarras = '" + codigobarras + "'";
+            System.out.println(sql);
+            prod = (Produto) statement.executeQuery(sql);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       
        return prod;
     }
    
 
     public Collection<Produto> buscaProduto(String nomeProduto) {
-       
-        /*
-       implementar codigo
-       buscar produto por nome no banco
-       se produto existir retorna lista de produto com o msm nome
-       se não retorna null
-       */       
-        
-       //listaProd recebe lista de produtos buscado
-        Collection<Produto> listaProd =null;
-        
+        Collection<Produto> listaProd = null;
+             
+       try {
+            Statement statement = conn.createStatement();
+            String sql = "SELECT * FROM brinquefelizschema.produto WHERE nomeproduto LIKE '% '" + nomeProduto + "'%";
+            System.out.println(sql);
+             listaProd.add((Produto) statement.executeQuery(sql));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
        return listaProd;
     }
 
