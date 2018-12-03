@@ -9,7 +9,7 @@ public class Cliente implements Serializable {
     
     private String nome;
 
-    private int cpf;
+    private String cpf;
 
 
     private int telefone;
@@ -21,13 +21,13 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(long idCliente, String nome, int cpf, int telefone, String email, Endereco endereco) {
+    public Cliente(long idCliente, String nome, String cpf, int telefone, String email) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.email = email;
-        this.endereco = endereco;
+      
     }
 
     public long getIdCliente() {
@@ -46,11 +46,11 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
