@@ -76,13 +76,17 @@ public class VendaManager extends ConexaoBD {
         }
         return preco;
     }
-public void removerProdutoVenda(Produto prod) {
+    public void removerProdutoVenda(Produto prod) {
+    	ItemVenda exclui = new ItemVenda();
+    	LinkedList<ItemVenda> aa= new LinkedList<ItemVenda>();
         
         for (ItemVenda a : ven.getItemVenda()) {
-        	if(a.getProduto().getCodigoBarras()==prod.getCodigoBarras())
-        	ven.getItemVenda().remove(a);
+        	if(a.getProduto().getCodigoBarras()==prod.getCodigoBarras())continue;
+        	else aa.add(a);
         	
         }
+        ven.setItemVenda(aa);
+        
     }
     // registra pagamento no banco e retorna se registrou
     public void registraPagamento(double valorVenda) {
