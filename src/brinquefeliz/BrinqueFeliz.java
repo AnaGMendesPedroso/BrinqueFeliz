@@ -18,9 +18,7 @@ public class BrinqueFeliz {
      */
     public static void main(String[] args) {
        TelaVenda view = new TelaVenda();
-       ControllerVenda controller = new ControllerVenda();
-
-       view.startVenda(controller.buscarFuncionario(123321), controller.buscaCliente(10));
+       view.startVenda();
     }
     
 }

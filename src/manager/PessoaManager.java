@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class PessoaManager extends ConexaoBD {
         super();
     }
 
-    public Cliente buscaCliente(int idCliente) {
+    public Cliente buscaCliente(long idCliente) {
         Cliente cli = null;
 
         try {
@@ -35,12 +36,12 @@ public class PessoaManager extends ConexaoBD {
             ResultSet resultado =  statement.executeQuery(sql);
             while (resultado.next()) {
                 
-                int id=resultado.getInt("idcliente");
-                String nome=resultado.getString("nome");
-                String cpf=resultado.getString("cpf");
-                int telefone=resultado.getInt("telefone");
+                int id=resultado.getInt(1);
+                String nome=resultado.getString(2);
+                String cpf=resultado.getString(3);
+                int telefone=resultado.getInt(4);
                 
-                String email=resultado.getString("email");
+                String email=resultado.getString(5);
                 
                 cli= new Cliente(id,nome,cpf,telefone,email);
                 
@@ -61,9 +62,9 @@ public class PessoaManager extends ConexaoBD {
             System.out.println(sql);
             ResultSet resultado =  statement.executeQuery(sql);
             while (resultado.next()) {
-                int mat = resultado.getInt("matricula");
-                String nome = resultado.getString("nome");
-                boolean adm = resultado.getBoolean("ehadministrador");
+                int mat = resultado.getInt(1);
+                String nome = resultado.getString(2);
+                boolean adm = resultado.getBoolean(4);
                 
                 func = new Funcionario(mat,nome,adm);
             }
@@ -76,7 +77,7 @@ public class PessoaManager extends ConexaoBD {
     
     public boolean validarUsuario(int matricula) {
         Funcionario user;
-        List<Funcionario> lista = new ArrayList();
+        LinkedList<Funcionario> lista = new LinkedList();
         boolean teste;
         try {
             Statement statement = conn.createStatement();
@@ -86,8 +87,8 @@ public class PessoaManager extends ConexaoBD {
 
             ResultSet resultado = statement.executeQuery(sql);
             while (resultado.next()) {
-                String nome = resultado.getString("nome");
-                String ehADM = resultado.getString("ehadministrador");
+                String nome = resultado.getString(2);
+                String ehADM = resultado.getString(4);
                 user = new Funcionario(nome, matricula, ehADM);
                 lista.add(user);
             }

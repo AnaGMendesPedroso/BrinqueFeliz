@@ -67,7 +67,7 @@ public class VendaManager extends ConexaoBD {
     public double calcularValorTotal() {
         double preco = 0;
 
-        Collection<ItemVenda> listaItem;
+        LinkedList<ItemVenda> listaItem;
         listaItem = ven.getItemVenda();
         for (ItemVenda a : listaItem) {
             preco += a.getQuantidade() * a.getProduto().getPreco();
@@ -76,9 +76,14 @@ public class VendaManager extends ConexaoBD {
     }
 
     public void removerProdutoVenda(Produto prod) {
-        Collection<ItemVenda> novaLista;
+        LinkedList<ItemVenda> novaLista;
         novaLista = ven.getItemVenda();
-        novaLista.remove(prod);
+        for (ItemVenda a : novaLista) {
+        	if(a.getProduto().equals(prod))
+        		novaLista.remove(a);
+        	
+        }
+      
         ven.setItemVenda(novaLista);
     }
     // registra pagamento no banco e retorna se registrou
@@ -105,7 +110,7 @@ public class VendaManager extends ConexaoBD {
             String nomeFuncionario = ven.getFuncionario().getNome();
             gravarArq.printf("%nNome Funcionario:");
             gravarArq.printf("%d%n", nomeFuncionario);
-            Collection<ItemVenda> lista = ven.getItemVenda();
+            LinkedList<ItemVenda> lista = ven.getItemVenda();
 
             
             gravarArq.printf(" Qtd ||\t\t\tNome Produto\t\t\t||    id     || Preço Unitario%n");
@@ -140,14 +145,14 @@ public class VendaManager extends ConexaoBD {
     }
 
 
-    public Collection<ItemVenda> retornaLista() {
-        Collection<ItemVenda> lista = ven.getItemVenda();
+    public LinkedList<ItemVenda> retornaLista() {
+    	LinkedList<ItemVenda> lista = ven.getItemVenda();
         return lista;
     }
 
     // busca produto dentro da venda iniciada e retorna se o produto existe ou não
     public boolean buscaProdutoLista(Produto prod) {
-        Collection<ItemVenda> lista = ven.getItemVenda();
+        LinkedList<ItemVenda> lista = ven.getItemVenda();
         boolean teste = false;
         for (ItemVenda a : lista) {
             if (a.getProduto().equals(prod)) {
@@ -161,7 +166,7 @@ public class VendaManager extends ConexaoBD {
     
     public boolean finalizarVenda() {
         // pega a quantidade de itens da venda
-        Collection<ItemVenda> list= ven.getItemVenda();
+        LinkedList<ItemVenda> list= ven.getItemVenda();
         int quantidade = 0;
         for(ItemVenda a: list) quantidade+=a.getQuantidade();
 

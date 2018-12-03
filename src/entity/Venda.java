@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Collection;
 
 
@@ -14,7 +15,7 @@ public class Venda implements Serializable {
 
     private String data;
 
-    private Collection<ItemVenda> itemDeVenda;
+    private LinkedList<ItemVenda> itemDeVenda;
 
     private Cliente cliente;
 
@@ -28,6 +29,7 @@ public class Venda implements Serializable {
     public Venda(Cliente cliente, Funcionario funcionario) {
         this.cliente = cliente;
         this.funcionario = funcionario;
+        this.itemDeVenda = new LinkedList();
     }
 
     public Venda(Funcionario funcionario) {
@@ -58,11 +60,11 @@ public class Venda implements Serializable {
         this.data = data;
     }
 
-    public Collection<ItemVenda> getItemVenda() {
+    public LinkedList<ItemVenda> getItemVenda() {
         return itemDeVenda;
     }
 
-    public void setItemVenda(Collection<ItemVenda> itemDeVenda) {
+    public void setItemVenda(LinkedList<ItemVenda> itemDeVenda) {
         this.itemDeVenda = itemDeVenda;
     }
 
