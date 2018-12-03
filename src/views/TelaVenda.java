@@ -18,24 +18,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author nathanbispo
  */
 public class TelaVenda extends javax.swing.JFrame {
-
+    
     ControllerVenda venda = new ControllerVenda();
 
     public TelaVenda() {
-        Funcionario funcionario = venda.buscarFuncionario(123321);
-        Cliente cliente = venda.buscaCliente(10);
-        venda.iniciarVenda(cliente.getIdCliente(), funcionario.getMatricula());
+    	Funcionario funcionario=venda.buscarFuncionario(123321);
+    	Cliente cliente =venda.buscaCliente(10);
+    	venda.iniciarVenda(cliente.getIdCliente(), funcionario.getMatricula());
         initComponents();
         setFoncionario(funcionario, cliente);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); 
     }
 
     /**
@@ -348,371 +350,409 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void setFoncionario(Funcionario funcionario, Cliente cliente) {
+    
+    private void setFoncionario(Funcionario funcionario, Cliente cliente){
         nomeFuncionario.setText(funcionario.getNome());
-        if (funcionario.isEhAdministrador()) {
+        if(funcionario.isEhAdministrador())
             cargo.setText("Administrador");
-        }
         clienteNOME.setText("Cliente: " + cliente.getNome());
-        idCliente.setText("ID: " + cliente.getIdCliente());
+        idCliente.setText("ID: "+ cliente.getIdCliente());
     }
-
-    private void setTamanhoTabelaPopUp() {
+    
+    private void setTamanhoTabelaPopUp(){
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null}
-                },
-                new String[]{
-                    "Id", "Nome", "Preco"
-                }));
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+        new String [] {
+            "Id", "Nome", "Preco"
+        }));
     }
-
+    
     //private String idString = "";
-    private void listaProdutosPOPUP(LinkedList<Produto> list, int qtd) {
+    private void listaProdutosPOPUP(LinkedList<Produto> list, int qtd){
         //idString = "";
         //criar POPUP
         JFrame janela = new JFrame();
         JButton botaoPopUp = new javax.swing.JButton("ENVIAR");
-
+        
         JTextArea iDtextArea = new JTextArea();
-
-        janela.setSize(500, 800);
+                
+        janela.setSize(500, 800);        
         janela.setTitle("Lista de Produtos");
         janela.setLocationRelativeTo(null); // para aparecer no meio da tela
         janela.setVisible(true);
-
-        botaoPopUp.setBounds(290, 700, 100, 50);
+  
+        botaoPopUp.setBounds(290,700,100, 50);
         janela.add(botaoPopUp);
-        iDtextArea.setBounds(80, 700, 240, 50);
+        iDtextArea.setBounds(80,700,240, 50);
         iDtextArea.setFont(new java.awt.Font("Dialog", 1, 18));
         janela.add(iDtextArea);
-
+        
         setTamanhoTabelaPopUp();
         //add cabeçalho na primeira linha da tabela
         jTable1.setValueAt("ID", 0, 0);
         jTable1.setValueAt("NOME", 0, 1);
         jTable1.setValueAt("PREÇO", 0, 2);
-
+        
         //coloca valores da lista na tabela jTable1
-        int linha = 1;
+        int linha=1;
         for (Produto prod : list) {
             jTable1.setValueAt(prod.getCodigoBarras(), linha, 0);
             jTable1.setValueAt(prod.getNomeProduto(), linha, 1);
-            jTable1.setValueAt("R$ " + prod.getPreco(), linha, 2);
+            jTable1.setValueAt("R$ "+prod.getPreco(), linha, 2);
             linha++;
         }
-
+             
         //add tabela jTable1 no POPUP
         janela.add(jTable1);
 
         botaoPopUp.addActionListener((java.awt.event.ActionEvent evt) -> {
-            venda.adicionarProdutoVenda(Integer.parseInt(iDtextArea.getText()), qtd);
-            setTabelaDeVenda(venda.retornaLista());
+        	venda.adicionarProdutoVenda(Integer.parseInt(iDtextArea.getText()), qtd);
+        	setTabelaDeVenda(venda.retornaLista());
             janela.setVisible(false);
-            valorTotalLABEL.setText("R$ " + String.format("%.2f", (venda.calcularValorTotal())));
+            valorTotalLABEL.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
         });
     }
-
-    private void mensagemPopUp(String mensagem) {
-        JFrame execao = new JFrame();
-        execao.setSize(500, 200);
-        execao.setLocationRelativeTo(null);
+    
+    private void mensagemPopUp(String mensagem){
+        JFrame execao = new JFrame();   
+        execao.setSize(500, 200);        
+        execao.setLocationRelativeTo(null); 
         execao.setVisible(true);
-
+        
         JLabel erro = new JLabel();
         erro.setText(mensagem);
-        erro.setBounds(125, 0, 250, 100);
+        erro.setBounds(125,0,250,100);
         erro.setFont(new java.awt.Font("Dialog", 1, 14));
         erro.setHorizontalAlignment(SwingConstants.CENTER);
         execao.add(erro);
-
+        
         JButton voltar = new javax.swing.JButton("OK");
-        voltar.setBounds(200, 100, 100, 40);
+        voltar.setBounds(200,100,100, 40);
         execao.add(voltar);
-
+        
         JPanel painel = new JPanel();
         painel.setSize(500, 200);
         painel.setBackground(Color.white);
         execao.add(painel);
-
+        
         voltar.addActionListener((java.awt.event.ActionEvent evt1) -> {
             execao.setVisible(false);
         });
     }
-
-    private void setTabelaDeVenda(LinkedList<ItemVenda> listProduto) {
+    private void zeraTudo(){
+        for (int i=0; i<10; i++) {
+            listaProdutos.setValueAt(null, i, 0);
+            listaProdutos.setValueAt(null, i, 1);
+            listaProdutos.setValueAt(null, i, 2);
+            listaProdutos.setValueAt(null, i, 3);
+            listaProdutos.setValueAt(null, i, 4);
+        }
+        valorTotalLABEL.setText("R$ 0.00"); 
+    }
+    
+    public void fim() {
+	    java.awt.EventQueue.invokeLater(() -> {
+	    	setVisible(false);
+	    });
+    }
+    
+    private void setTabelaDeVenda(LinkedList<ItemVenda> listProduto){
         Produto produto;
-        int linha = 0;
+        int linha=0;
         for (ItemVenda item : listProduto) {
             produto = item.getProduto();
             listaProdutos.setValueAt(item.getQuantidade(), linha, 0);
             listaProdutos.setValueAt(produto.getCodigoBarras(), linha, 1);
             listaProdutos.setValueAt(produto.getNomeProduto(), linha, 2);
-            listaProdutos.setValueAt("R$" + produto.getPreco(), linha, 3);
-            listaProdutos.setValueAt("R$" + (produto.getPreco() * item.getQuantidade()), linha, 4);
+            listaProdutos.setValueAt("R$"+produto.getPreco(), linha, 3);
+            listaProdutos.setValueAt("R$"+(produto.getPreco()*item.getQuantidade()), linha, 4);
             linha++;
         }
     }
-
+    
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         LinkedList<Produto> listProduto;
         int id = 0;
 
         //pega String do campo de codigo de barras
-        if (!codDeBarrasCAMPO.getText().equals("")) {
-            String idCampo = codDeBarrasCAMPO.getText();
-            venda.adicionarProdutoVenda(Integer.parseInt(idCampo), (int) qtd.getValue());
-        } /*
+        if(!codDeBarrasCAMPO.getText().equals("") && nomeTEXTO.getText().equals("")){
+           String idCampo = codDeBarrasCAMPO.getText();
+           venda.adicionarProdutoVenda(Integer.parseInt(idCampo), (int) qtd.getValue());
+        }
+        /*
         ** pega String do campo de nome
         ** chama o metodo para buscar produto por nome que retorna um int id
-         */ else if (!nomeTEXTO.getText().equals("")) {
+        */
+        else if(codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals("")){
             String nomeCampo = nomeTEXTO.getText();
             listProduto = venda.buscarProduto(nomeCampo);
-
-            if (listProduto != null) {
-                listaProdutosPOPUP(listProduto, (int) qtd.getValue());
-            } else {
-                mensagemPopUp("Produto não encontrado");
-            }
-        }
-
+                
+                if(listProduto != null)
+                    listaProdutosPOPUP(listProduto, (int) qtd.getValue());
+                else
+                    mensagemPopUp("Produto não encontrado");     
+        }else if(!codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals(""))
+        	mensagemPopUp("Insira em apenas um dos campos"); 
+        
         setTabelaDeVenda(venda.retornaLista());
-
+        
         //atualiza o valor total na view
-        valorTotalLABEL.setText("R$ " + String.format("%.2f", (venda.calcularValorTotal())));
+        valorTotalLABEL.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
+        
+        codDeBarrasCAMPO.setText(null);
+        nomeTEXTO.setText(null);
+        qtd.setValue(1);
     }//GEN-LAST:event_buscarActionPerformed
-
+    
     private String formaDePagamento;
     double valor = 0.0;
     private void finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarVendaActionPerformed
-        formaDePagamento = "";
-        //criar POPUP
-        JFrame popUpPagamento = new JFrame();
+        if(venda.retornaLista().size()!=0) {
+	    	formaDePagamento = "";
+	        //criar POPUP
+	        JFrame popUpPagamento = new JFrame();
+	        
+	        JButton dinheiro             = new javax.swing.JButton("DINHEIRO");
+	        JButton cartaoCredito        = new javax.swing.JButton("CARTÃO DE CRÉDITO");
+	        JButton cartaoDebito         = new javax.swing.JButton("CARTÃO DE DÉBITO");
+	        JButton cheque               = new javax.swing.JButton("CHEQUE");
+	        JButton calcularTrouco       = new javax.swing.JButton("CALCULAR TROCO");
+	        JButton cancelarVendaPopUp   = new javax.swing.JButton("VOLTAR");
+	        JButton finalizarVendaPopUp  = new javax.swing.JButton("EFETUAR PAGAMENTO");
+	        
+	        JPanel painel = new JPanel();
+	        painel.setSize(500, 600);
+	        painel.setBackground(Color.white);
+	        
+	        popUpPagamento.setSize(500, 600);        
+	        popUpPagamento.setTitle("Formas de Pagamento");
+	        popUpPagamento.setLocationRelativeTo(null); // para aparecer no meio da tela
+	        popUpPagamento.setVisible(true);
+	  
+	        dinheiro.setBounds(130,100,240, 50);
+	        cartaoCredito.setBounds(130,160,240, 50);
+	        cartaoDebito.setBounds(130,220,240, 50);
+	        cheque.setBounds(130,280,240, 50);
+	        
+	        calcularTrouco.setBounds(130,350,240, 40);
+	        calcularTrouco.setBackground(new java.awt.Color(0,206,209));
+	        calcularTrouco.setFont(new java.awt.Font("Noto Sans", 1, 18));
+	        calcularTrouco.setForeground(new java.awt.Color(255, 255, 255));
+	        calcularTrouco.setVisible(false);
+	        
+	        finalizarVendaPopUp.setBounds(130,350,240, 40);
+	        finalizarVendaPopUp.setBackground(Color.green);
+	        finalizarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
+	        finalizarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
+	        finalizarVendaPopUp.setVisible(false);
+	        
+	        cancelarVendaPopUp.setBounds(150,391,200, 40);
+	        cancelarVendaPopUp.setBackground(new java.awt.Color(240,230,140));
+	        cancelarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
+	        cancelarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
+	        
+	        JLabel pagamentoDinheiroValorTEXTO = new javax.swing.JLabel();
+	        pagamentoDinheiroValorTEXTO.setBounds(160, 0, 150, 100);
+	        pagamentoDinheiroValorTEXTO.setFont(new java.awt.Font("Dialog", 1, 18)); 
+	        pagamentoDinheiroValorTEXTO.setText("VALOR TOTAL");
+	        pagamentoDinheiroValorTEXTO.setVisible(false);
+	        
+	        
+	        JLabel pagamentoDinheiroVALOR = new javax.swing.JLabel();
+	        pagamentoDinheiroVALOR.setBounds(160, 25, 250, 100);
+	        pagamentoDinheiroVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
+	        pagamentoDinheiroVALOR.setVisible(false);
+	        
+	        JLabel totalRecebidoTEXTO = new javax.swing.JLabel();
+	        totalRecebidoTEXTO.setBounds(140, 80, 220, 100);
+	        totalRecebidoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));  
+	        totalRecebidoTEXTO.setText("VALOR TOTAL RECEBIDO:");
+	        totalRecebidoTEXTO.setVisible(false);
+	        
+	        JTextArea totalRecebidoVALOR = new javax.swing.JTextArea();
+	        totalRecebidoVALOR.setBounds(150, 160, 200, 70);
+	        totalRecebidoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));  
+	        totalRecebidoVALOR.setVisible(false);
+	        
+	        JLabel pagamentoDinheiroTrocoTEXTO = new javax.swing.JLabel();
+	        pagamentoDinheiroTrocoTEXTO.setBounds(160, 220, 150, 100);
+	        pagamentoDinheiroTrocoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18)); 
+	        pagamentoDinheiroTrocoTEXTO.setText("TROCO:");
+	        pagamentoDinheiroTrocoTEXTO.setVisible(false);
+	        
+	        
+	        JLabel pagamentoDinheiroTrocoVALOR = new javax.swing.JLabel();
+	        pagamentoDinheiroTrocoVALOR.setBounds(160, 250, 250, 100);
+	        pagamentoDinheiroTrocoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
+	        pagamentoDinheiroTrocoVALOR.setVisible(false);
+	        
+	        popUpPagamento.add(finalizarVendaPopUp);
+	        popUpPagamento.add(pagamentoDinheiroTrocoVALOR);
+	        popUpPagamento.add(pagamentoDinheiroTrocoTEXTO);
+	        popUpPagamento.add(totalRecebidoVALOR);
+	        popUpPagamento.add(totalRecebidoTEXTO);
+	        popUpPagamento.add(pagamentoDinheiroValorTEXTO);
+	        popUpPagamento.add(pagamentoDinheiroVALOR);    
+	        popUpPagamento.add(dinheiro);
+	        popUpPagamento.add(cartaoCredito);
+	        popUpPagamento.add(cartaoDebito);
+	        popUpPagamento.add(cheque);
+	        popUpPagamento.add(calcularTrouco);
+	        popUpPagamento.add(cancelarVendaPopUp);
+	        popUpPagamento.add(painel);
+	
+	        dinheiro.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            formaDePagamento = "dinheiro";       
+	            dinheiro.setEnabled(false);
+	            
+	            dinheiro.setVisible(false);
+	            cartaoCredito.setVisible(false);
+	            cartaoDebito.setVisible(false);
+	            cheque.setVisible(false);
+	            calcularTrouco.setVisible(true);
+	            
+	            try{
+	                pagamentoDinheiroVALOR.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
+	            }catch(NullPointerException e){
+	                popUpPagamento.setVisible(false);
+	                mensagemPopUp("Não há lista de vendas");
+	            }
+	            
+	            pagamentoDinheiroValorTEXTO.setVisible(true);
+	            pagamentoDinheiroVALOR.setVisible(true);
+	            totalRecebidoTEXTO.setVisible(true);
+	            totalRecebidoVALOR.setVisible(true);
+	            pagamentoDinheiroTrocoTEXTO.setVisible(true);
+	            pagamentoDinheiroTrocoVALOR.setVisible(true);
+	        });
+	        
+	        cartaoCredito.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            formaDePagamento = "cartaoCredito";
+	            cartaoCredito.setEnabled(false);
+	            calcularTrouco.setEnabled(true);
+	        });
+	        
+	        cartaoDebito.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            formaDePagamento = "cartaoDebito";
+	            cartaoDebito.setEnabled(false);
+	            calcularTrouco.setEnabled(true);
+	        });
+	        
+	        cheque.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            formaDePagamento = "cheque";
+	            cheque.setEnabled(false);
+	            calcularTrouco.setEnabled(true);
+	        });
+	        
+	        calcularTrouco.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            try{
+	            valor = Double.parseDouble(totalRecebidoVALOR.getText());
+	            if(valor >= venda.calcularValorTotal()){
+	                pagamentoDinheiroTrocoVALOR.setText("R$ "+ String.format( "%.2f",((valor - venda.calcularValorTotal()))));
+	                finalizarVendaPopUp.setVisible(true);
+	            }
+	            else
+	                mensagemPopUp("Valor insuficiente");
+	            }catch(NumberFormatException e){
+	                mensagemPopUp("Valor insuficiente");
+	            }
+	        }); 
+	        
+	        finalizarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            venda.registrarPagamento(venda.calcularValorTotal());
+	            
+	        	if(venda.finalizarVenda()){
+	                popUpPagamento.setVisible(false);
+	                zeraTudo();
+	                fim();
+	                mensagemPopUp("Venda efetuada com sucesso");
+	                try {
+	                    venda.gerarComprovante();
+	                } catch (IOException ex) {
+	                    Logger.getLogger(TelaVenda.class.getName()).log(Level.SEVERE, null, ex);
+	                }
+	                
+	                
 
-        JButton dinheiro = new javax.swing.JButton("DINHEIRO");
-        JButton cartaoCredito = new javax.swing.JButton("CARTÃO DE CRÉDITO");
-        JButton cartaoDebito = new javax.swing.JButton("CARTÃO DE DÉBITO");
-        JButton cheque = new javax.swing.JButton("CHEQUE");
-        JButton calcularTrouco = new javax.swing.JButton("CALCULAR TROCO");
-        JButton cancelarVendaPopUp = new javax.swing.JButton("VOLTAR");
-        JButton finalizarVendaPopUp = new javax.swing.JButton("EFETUAR PAGAMENTO");
-
-        JPanel painel = new JPanel();
-        painel.setSize(500, 600);
-        painel.setBackground(Color.white);
-
-        popUpPagamento.setSize(500, 600);
-        popUpPagamento.setTitle("Formas de Pagamento");
-        popUpPagamento.setLocationRelativeTo(null); // para aparecer no meio da tela
-        popUpPagamento.setVisible(true);
-
-        dinheiro.setBounds(130, 100, 240, 50);
-        cartaoCredito.setBounds(130, 160, 240, 50);
-        cartaoDebito.setBounds(130, 220, 240, 50);
-        cheque.setBounds(130, 280, 240, 50);
-
-        calcularTrouco.setBounds(130, 350, 240, 40);
-        calcularTrouco.setBackground(new java.awt.Color(0, 206, 209));
-        calcularTrouco.setFont(new java.awt.Font("Noto Sans", 1, 18));
-        calcularTrouco.setForeground(new java.awt.Color(255, 255, 255));
-        calcularTrouco.setVisible(false);
-
-        finalizarVendaPopUp.setBounds(130, 350, 240, 40);
-        finalizarVendaPopUp.setBackground(Color.green);
-        finalizarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
-        finalizarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
-        finalizarVendaPopUp.setVisible(false);
-
-        cancelarVendaPopUp.setBounds(150, 391, 200, 40);
-        cancelarVendaPopUp.setBackground(new java.awt.Color(240, 230, 140));
-        cancelarVendaPopUp.setFont(new java.awt.Font("Noto Sans", 1, 18));
-        cancelarVendaPopUp.setForeground(new java.awt.Color(255, 255, 255));
-
-        JLabel pagamentoDinheiroValorTEXTO = new javax.swing.JLabel();
-        pagamentoDinheiroValorTEXTO.setBounds(175, 0, 150, 100);
-        pagamentoDinheiroValorTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));
-        pagamentoDinheiroValorTEXTO.setText("VALOR TOTAL");
-        pagamentoDinheiroValorTEXTO.setHorizontalAlignment(SwingConstants.CENTER);
-        pagamentoDinheiroValorTEXTO.setVisible(false);
-
-        JLabel pagamentoDinheiroVALOR = new javax.swing.JLabel();
-        pagamentoDinheiroVALOR.setBounds(160, 25, 150, 100);
-        pagamentoDinheiroVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
-        pagamentoDinheiroVALOR.setHorizontalAlignment(SwingConstants.CENTER);
-        pagamentoDinheiroVALOR.setVisible(false);
-
-        JLabel totalRecebidoTEXTO = new javax.swing.JLabel();
-        totalRecebidoTEXTO.setBounds(140, 80, 220, 100);
-        totalRecebidoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));
-        totalRecebidoTEXTO.setText("VALOR TOTAL RECEBIDO:");
-        totalRecebidoTEXTO.setVisible(false);
-
-        JTextArea totalRecebidoVALOR = new javax.swing.JTextArea();
-        totalRecebidoVALOR.setBounds(150, 160, 200, 70);
-        totalRecebidoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
-        totalRecebidoVALOR.setVisible(false);
-
-        JLabel pagamentoDinheiroTrocoTEXTO = new javax.swing.JLabel();
-        pagamentoDinheiroTrocoTEXTO.setBounds(160, 220, 150, 100);
-        pagamentoDinheiroTrocoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));
-        pagamentoDinheiroTrocoTEXTO.setText("TROCO:");
-        pagamentoDinheiroTrocoTEXTO.setVisible(false);
-
-        JLabel pagamentoDinheiroTrocoVALOR = new javax.swing.JLabel();
-        pagamentoDinheiroTrocoVALOR.setBounds(160, 250, 250, 100);
-        pagamentoDinheiroTrocoVALOR.setFont(new java.awt.Font("Dialog", 1, 30));
-        pagamentoDinheiroTrocoVALOR.setVisible(false);
-
-        popUpPagamento.add(finalizarVendaPopUp);
-        popUpPagamento.add(pagamentoDinheiroTrocoVALOR);
-        popUpPagamento.add(pagamentoDinheiroTrocoTEXTO);
-        popUpPagamento.add(totalRecebidoVALOR);
-        popUpPagamento.add(totalRecebidoTEXTO);
-        popUpPagamento.add(pagamentoDinheiroValorTEXTO);
-        popUpPagamento.add(pagamentoDinheiroVALOR);
-        popUpPagamento.add(dinheiro);
-        popUpPagamento.add(cartaoCredito);
-        popUpPagamento.add(cartaoDebito);
-        popUpPagamento.add(cheque);
-        popUpPagamento.add(calcularTrouco);
-        popUpPagamento.add(cancelarVendaPopUp);
-        popUpPagamento.add(painel);
-
-        dinheiro.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            formaDePagamento = "dinheiro";
-            dinheiro.setEnabled(false);
-
-            dinheiro.setVisible(false);
-            cartaoCredito.setVisible(false);
-            cartaoDebito.setVisible(false);
-            cheque.setVisible(false);
-            calcularTrouco.setVisible(true);
-
-            try {
-                pagamentoDinheiroVALOR.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
-            } catch (NullPointerException e) {
-                popUpPagamento.setVisible(false);
-                mensagemPopUp("Não há lista de vendas");
-            }
-
-            pagamentoDinheiroValorTEXTO.setVisible(true);
-            pagamentoDinheiroVALOR.setVisible(true);
-            totalRecebidoTEXTO.setVisible(true);
-            totalRecebidoVALOR.setVisible(true);
-            pagamentoDinheiroTrocoTEXTO.setVisible(true);
-            pagamentoDinheiroTrocoVALOR.setVisible(true);
-        });
-
-        cartaoCredito.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            formaDePagamento = "cartaoCredito";
-            cartaoCredito.setEnabled(false);
-            calcularTrouco.setEnabled(true);
-        });
-
-        cartaoDebito.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            formaDePagamento = "cartaoDebito";
-            cartaoDebito.setEnabled(false);
-            calcularTrouco.setEnabled(true);
-        });
-
-        cheque.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            formaDePagamento = "cheque";
-            cheque.setEnabled(false);
-            calcularTrouco.setEnabled(true);
-        });
-
-        calcularTrouco.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            try {
-                valor = Double.parseDouble(totalRecebidoVALOR.getText());
-                if (valor >= venda.calcularValorTotal()) {
-                    pagamentoDinheiroTrocoVALOR.setText("R$ " + (valor - venda.calcularValorTotal()));
-                    finalizarVendaPopUp.setVisible(true);
-                } else {
-                    mensagemPopUp("Valor insuficiente");
-                }
-            } catch (NumberFormatException e) {
-                mensagemPopUp("Valor insuficiente");
-            }
-        });
-
-        finalizarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            venda.registrarPagamento(venda.calcularValorTotal());
-            if (venda.finalizarVenda()) {
-                popUpPagamento.setVisible(false);
-                mensagemPopUp("Venda Efetuada com sucesso");
-                try {
-                    venda.gerarComprovante();
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaVenda.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                mensagemPopUp("Houve um erro ao efetuar pagamento");
-            }
-        });
-
-        cancelarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
-            popUpPagamento.setVisible(false);
-        });
-
+	            }else
+	                mensagemPopUp("Houve um erro ao efetuar pagamento");
+	        });
+	        
+	        cancelarVendaPopUp.addActionListener((java.awt.event.ActionEvent evt1) -> {
+	            popUpPagamento.setVisible(false);
+	        });
+    	}else
+    		mensagemPopUp("Não ha produto na venda");
+        
         /*
         ** Chamar metodo enviando o tipo do pagamento
-         */
+        */
     }//GEN-LAST:event_finalizarVendaActionPerformed
 
     private void cancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarVendaActionPerformed
-        venda.finalizarVenda();
+       venda.finalizarVenda();
+       mensagemPopUp("Venda Cancelada");
+       fim();
+       
     }//GEN-LAST:event_cancelarVendaActionPerformed
 
     private void removerProdutoBOTAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutoBOTAOActionPerformed
-        venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
-        setTabelaDeVenda(venda.retornaLista());
+    	if(!idREMOVER.getText().equals("")) {
+    		zeraTudo();
+    		venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
+    		
+    		
+    	}
+    	setTabelaDeVenda(venda.retornaLista());
+        idREMOVER.setText(null);
     }//GEN-LAST:event_removerProdutoBOTAOActionPerformed
-
+    
     public void startVenda() {
-
+    	
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -738,7 +778,7 @@ public class TelaVenda extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new TelaVenda().setVisible(true);

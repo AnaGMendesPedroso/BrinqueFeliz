@@ -77,12 +77,12 @@ public class ControllerVenda {
     //remove produto da venda se esse produto existir
     public void removerProdutoVenda(int idProduto) {
         Produto prod;
-        
+        //retorna o produto que deseja retirar
         prod = produtoManager.buscaProduto(idProduto);
+        //verifica se o produto existe na venda,se sim remove;
         
         vendaManager.removerProdutoVenda(prod);
-
-    }    
+    }   
     //Retorna lista de itens para 
     public LinkedList<ItemVenda> retornaLista(){
         LinkedList<ItemVenda> lista= vendaManager.retornaLista();
