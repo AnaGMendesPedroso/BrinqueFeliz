@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package manager;
+
 import entity.Categoria;
 import entity.Cliente;
 import entity.Produto;
@@ -24,41 +25,53 @@ public class ProdutoManager extends ConexaoBD {
     public ProdutoManager() {
         super();
     }
-    
-    
 
     public Produto buscaProduto(int codigobarras) {
-       Produto prod=null;
-       
-       try {
+        Produto p = null;
+
+        try {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.produto WHERE codigobarras = '" + codigobarras + "'";
             System.out.println(sql);
             ResultSet resultado = statement.executeQuery(sql);
             // converter resultado para Produto aqui e onde precisar
-            //resultado.
+            while (resultado.next()) {
+                int cod = resultado.getInt("codigobarras");
+                System.out.println(cod);
+                int cat = resultado.getInt("idcategoria");
+                System.out.println(cat);
+
+                String nome = resultado.getString("nomeproduto");
+                System.out.println(nome);
+
+                double preco = resultado.getDouble("preco");
+                System.out.println(preco);
+
+                int qtd = resultado.getInt("qtdestoque");
+                System.out.println(qtd);
+
+                p = new Produto(cod, cat, nome, preco, qtd);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
-       return prod;
+        return p;
     }
-   
 
     public Collection<Produto> buscaProduto(String nomeProduto) {
         Collection<Produto> listaProd = null;
-             
-       try {
+
+        try {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.produto WHERE nomeproduto LIKE '% '" + nomeProduto + "'%";
             System.out.println(sql);
-             listaProd.add((Produto) statement.executeQuery(sql));
-            
+            listaProd.add((Produto) statement.executeQuery(sql));
+
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return listaProd;
+        return listaProd;
     }
 
 }
