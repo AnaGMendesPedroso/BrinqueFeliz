@@ -48,16 +48,10 @@ public class Funcionario implements Serializable {
         this.endereco = endereco;
     }
 
-    public Funcionario(String nome, int matricula, String ehADM) {
+    public Funcionario(String nome, int matricula, boolean ehAdministrador) {
         this.nome = nome;
-         this.matricula = matricula;
-         this.ehAdministrador = ehAdministrador;
-    }
-
-    public Funcionario(int mat, String nome, boolean adm) {
-         this.nome = nome;
-         this.matricula = matricula;
-         this.ehAdministrador = ehAdministrador;
+        this.matricula = matricula;
+        this.ehAdministrador = ehAdministrador;
     }
 
     public int getMatricula() {
