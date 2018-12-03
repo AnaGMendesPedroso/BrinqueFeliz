@@ -201,13 +201,13 @@ INSERT INTO brinquefelizschema.categoria (idEstoque,idCategoria, nomeCategoria, 
 VALUES (1, 8,'Arminhas', 'Nerf');
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (123, 8, 'NERF Gun', 'NERF é uma linha de brinquedos desenvolvidos para serem jogados com segurança em ambientes fechados, produzidos com um material esponjoso macio e leve que evita acidentes', '384,90',150);
+VALUES (123, 8, 'NERF Gun', 'NERF é uma linha de brinquedos desenvolvidos para serem jogados com segurança em ambientes fechados, produzidos com um material esponjoso macio e leve que evita acidentes', '384.90',150);
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (654, 7,'Carrinho Hot Wheels Ultimate Garagem FTB69 - Mattel','Diversão garantida com o Carrinho Hot Wheels Ultimate Garagem, da Mattel, um carrinho para colecionar e brincar com uma reviravolta e um ataque surpresa de tubarões. Deixe voar a imaginação das crianças, com características surpreendentes que incluem espaço para armazenar mais de 80 carros. O playset inclui 2 veículos metálicos Hot Wheels. Personalizados para transformar as brincadeiras.','649,99',50);
+VALUES (654, 7,'Carrinho Hot Wheels Ultimate Garagem FTB69 - Mattel','Diversão garantida com o Carrinho Hot Wheels Ultimate Garagem, da Mattel, um carrinho para colecionar e brincar com uma reviravolta e um ataque surpresa de tubarões. Deixe voar a imaginação das crianças, com características surpreendentes que incluem espaço para armazenar mais de 80 carros. O playset inclui 2 veículos metálicos Hot Wheels. Personalizados para transformar as brincadeiras.','649.99',50);
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (987,6,'Boneca Ladybug Baby Brink','Sabe aquela personagem da tv que sempre gostamos e queremos estar perto o tempo todo? Agora é possível! Com a "Boneca Ladybug" você pode não só apertar, mas beijar, brincar a toda hora e lugar. Confeccionada de plástico, vinil e Pvc, ela é perfeita para a brincadeira de chá, escolhinha, para levar ao parque ou brincar com suas amigas.','79,90',90);
+VALUES (987,6,'Boneca Ladybug Baby Brink','Sabe aquela personagem da tv que sempre gostamos e queremos estar perto o tempo todo? Agora é possível! Com a "Boneca Ladybug" você pode não só apertar, mas beijar, brincar a toda hora e lugar. Confeccionada de plástico, vinil e Pvc, ela é perfeita para a brincadeira de chá, escolhinha, para levar ao parque ou brincar com suas amigas.','79.90',90);
 
 INSERT INTO brinquefelizschema.estoque (idEstoque, quantidade)
 VALUES (1,290);
