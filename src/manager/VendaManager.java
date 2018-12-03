@@ -9,7 +9,7 @@ import entity.Cliente;
 import entity.Funcionario;
 import entity.Venda;
 import entity.Pagamento;
-import entity.ItemDeVenda;
+import entity.ItemVenda;
 import entity.Produto;
 import java.util.LinkedList;
 import java.io.FileWriter;
@@ -54,7 +54,7 @@ public class VendaManager extends ConexaoBD {
         //verifica se a quantidade atual é maior ou igual a quantidade a ser vendida
         if (qtdAtual >= qtd) {
             //se sim, coloca o novo item de venda
-            ItemDeVenda novo = new ItemDeVenda(qtd, prod);
+            ItemVenda novo = new ItemVenda(qtd, prod);
             ven.adicionarProdutoVenda(novo);
             return true;
         } //se não, retorna false indicando que item não foi inserido
@@ -67,19 +67,19 @@ public class VendaManager extends ConexaoBD {
     public double calcularValorTotal() {
         double preco = 0;
 
-        Collection<ItemDeVenda> listaItem;
-        listaItem = ven.getItemDeVenda();
-        for (ItemDeVenda a : listaItem) {
+        Collection<ItemVenda> listaItem;
+        listaItem = ven.getItemVenda();
+        for (ItemVenda a : listaItem) {
             preco += a.getQuantidade() * a.getProduto().getPreco();
         }
         return preco;
     }
 
     public void removerProdutoVenda(Produto prod) {
-        Collection<ItemDeVenda> novaLista;
-        novaLista = ven.getItemDeVenda();
+        Collection<ItemVenda> novaLista;
+        novaLista = ven.getItemVenda();
         novaLista.remove(prod);
-        ven.setItemDeVenda(novaLista);
+        ven.setItemVenda(novaLista);
     }
     // registra pagamento no banco e retorna se registrou
     public void registraPagamento(double valorVenda) {
@@ -95,31 +95,40 @@ public class VendaManager extends ConexaoBD {
 
     public boolean gerarComprovante() {
         try {
-            FileWriter arq = new FileWriter("d:\\Comprovante-de-Venda.txt");
+            FileWriter arq = new FileWriter("Comprovante-de-Venda.txt");
             PrintWriter gravarArq = new PrintWriter(arq);
 
-            gravarArq.printf("--------------BRINQUE FELIZ S.A.--------------%n");
+            gravarArq.printf("\t\t\t\t--------------BRINQUE FELIZ S.A.--------------%n");
             String nomeCliente = ven.getCliente().getNome();
             gravarArq.printf("%nNome Cliente:");
             gravarArq.printf("%d%n", nomeCliente);
             String nomeFuncionario = ven.getFuncionario().getNome();
             gravarArq.printf("%nNome Funcionario:");
             gravarArq.printf("%d%n", nomeFuncionario);
-            Collection<ItemDeVenda> lista = ven.getItemDeVenda();
-
-            gravarArq.printf(" Qtd ||  Nome Produto  ||    id     || Preço Unitario%n");
-            for (ItemDeVenda a : lista) {
+            Collection<ItemVenda> lista = ven.getItemVenda();
+            
+            gravarArq.printf(" Qtd ||\t\t\tNome Produto\t\t\t||    id     || Preço Unitario%n");
+            for (ItemVenda a : lista) {
+                String q="     ||";
+                String n="                                               ||";
+                String i= "          ||";
+                String aux="";
                 String nome = a.getProduto().getNomeProduto();
+                n=nome+n.substring(nome.length());
                 int id = a.getProduto().getCodigoBarras();
+                aux=id+"";
+                i=aux+i.substring(aux.length());
                 int qtd = a.getQuantidade();
+                aux=qtd+"";
+                q=aux+q.substring(aux.length());
                 double precoUnitario = a.getProduto().getPreco();
                 double precoParcial = precoUnitario * qtd;
-                gravarArq.printf("  %d    %d     %d    %d%n", qtd, nome, id, precoUnitario);
-                gravarArq.printf("  %d  *  %d   =           %d    %n", qtd, precoUnitario, precoParcial);
+                gravarArq.printf("%s%s%s%f%n", q, n, i, precoUnitario);
+                gravarArq.printf("  %d  *  %f   =           %f    %n", qtd, precoUnitario, precoParcial);
             }
-            gravarArq.printf("%n-----------------------------------------------%n");
-            gravarArq.printf("Forma de Pagamento-------------------------%d%n", ven.getPagamento().getTipoPagamento());
-            gravarArq.printf("Total-------------------------%d%n", ven.getValor());
+            gravarArq.printf("%n\t\t\t\t\t-----------------------------------------------%n");
+            gravarArq.printf("Forma de Pagamento-------------------------------------%f%n", ven.getPagamento().getTipoPagamento());
+            gravarArq.printf("Total-----------------------------------------------------%f%n", ven.getValor());
 
             arq.close();
             return true;
@@ -127,30 +136,12 @@ public class VendaManager extends ConexaoBD {
             return false;
         }
     }
-
-    public Collection<ItemDeVenda> retornaLista() {
-        Collection<ItemDeVenda> lista = ven.getItemDeVenda();
-        return lista;
-    }
-
-    // busca produto dentro da venda iniciada e retorna se o produto existe ou não
-    public boolean buscaProdutoLista(Produto prod) {
-        Collection<ItemDeVenda> lista = ven.getItemDeVenda();
-        boolean teste = false;
-        for (ItemDeVenda a : lista) {
-            if (a.getProduto().equals(prod)) {
-                teste = true;
-            }
-        }
-        return teste;
-
-    }
     
     public boolean finalizarVenda() {
         // pega a quantidade de itens da venda
-        Collection<ItemDeVenda> list= ven.getItemDeVenda();
+        Collection<ItemVenda> list= ven.getItemVenda();
         int quantidade = 0;
-        for(ItemDeVenda a: list) quantidade+=a.getQuantidade();
+        for(ItemVenda a: list) quantidade+=a.getQuantidade();
 
         boolean teste = true;
         try{
@@ -181,7 +172,7 @@ public class VendaManager extends ConexaoBD {
           
             
             //insere cada item da lista no banco de dados
-            for(ItemDeVenda a: list){
+            for(ItemVenda a: list){
                 String sqlItem ="INSERT INTO ItemDeVenda(idVenda, codigoBarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
             statement.executeUpdate(sqlItem);
             }

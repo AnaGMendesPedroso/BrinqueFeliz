@@ -32,8 +32,19 @@ public class PessoaManager extends ConexaoBD {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.cliente WHERE idcliente = '" + idCliente + "'";
             System.out.println(sql);
-            cli = (Cliente) statement.executeQuery(sql);
-            
+            ResultSet resultado =  statement.executeQuery(sql);
+            while (resultado.next()) {
+                
+                int id=resultado.getInt("idcliente");
+                String nome=resultado.getString("nome");
+                String cpf=resultado.getString("cpf");
+                int telefone=resultado.getInt("telefone");
+                
+                String email=resultado.getString("email");
+                
+                cli= new Cliente(id,nome,cpf,telefone,email);
+                
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
