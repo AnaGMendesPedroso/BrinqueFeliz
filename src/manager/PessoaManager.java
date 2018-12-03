@@ -10,9 +10,7 @@ import entity.Funcionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,7 +64,7 @@ public class PessoaManager extends ConexaoBD {
                 String nome = resultado.getString(2);
                 boolean adm = resultado.getBoolean(4);
                 
-                func = new Funcionario(mat,nome,adm);
+                func = new Funcionario(nome, mat, adm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,8 +75,8 @@ public class PessoaManager extends ConexaoBD {
     
     public boolean validarUsuario(int matricula) {
         Funcionario user;
-        LinkedList<Funcionario> lista = new LinkedList();
-        boolean teste;
+        LinkedList<Funcionario> lista = new LinkedList<>();
+
         try {
             Statement statement = conn.createStatement();
             String sql = "SELECT *  FROM brinquefelizschema.funcionario WHERE matricula = '"
@@ -88,8 +86,10 @@ public class PessoaManager extends ConexaoBD {
             ResultSet resultado = statement.executeQuery(sql);
             while (resultado.next()) {
                 String nome = resultado.getString(2);
-                String ehADM = resultado.getString(4);
+                boolean ehADM = resultado.getBoolean(4);
+                
                 user = new Funcionario(nome, matricula, ehADM);
+
                 lista.add(user);
             }
             if (lista.isEmpty()) {
@@ -97,11 +97,11 @@ public class PessoaManager extends ConexaoBD {
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao validar: " + ex);
-            return teste = false;
+            return false;
         } catch (IllegalArgumentException e) {
             System.out.println("Não existe esse usuário no BD");
-            return teste = false;
+            return false;
         }
-        return teste = true;
+        return true;
     }
 }

@@ -409,35 +409,34 @@ public class TelaVenda extends javax.swing.JFrame {
         }));
     }
     
-    private String idString = "";
-    private String listaProdutosPOPUP(LinkedList<Produto> list){
-        idString = "";
+    //private String idString = "";
+    private void listaProdutosPOPUP(LinkedList<Produto> list, int qtd){
+        //idString = "";
         //criar POPUP
         JFrame janela = new JFrame();
-        JButton botao = new javax.swing.JButton("ENVIAR");
+        JButton botaoPopUp = new javax.swing.JButton("ENVIAR");
         
-        JTextArea textArea = new JTextArea();
+        JTextArea iDtextArea = new JTextArea();
                 
         janela.setSize(500, 800);        
         janela.setTitle("Lista de Produtos");
         janela.setLocationRelativeTo(null); // para aparecer no meio da tela
         janela.setVisible(true);
   
-        botao.setBounds(290,700,100, 50);
-        janela.add(botao);
-        textArea.setBounds(80,700,240, 50);
-        janela.add(textArea);
+        botaoPopUp.setBounds(290,700,100, 50);
+        janela.add(botaoPopUp);
+        iDtextArea.setBounds(80,700,240, 50);
+        iDtextArea.setFont(new java.awt.Font("Dialog", 1, 18));
+        janela.add(iDtextArea);
         
         setTamanhoTabelaPopUp();
         //add cabeçalho na primeira linha da tabela
         jTable1.setValueAt("ID", 0, 0);
         jTable1.setValueAt("NOME", 0, 1);
         jTable1.setValueAt("PREÇO", 0, 2);
-        //jTable1.setValueAt(botao, 0, 3);
         
         //coloca valores da lista na tabela jTable1
         int linha=1;
-        //list = instanciaTestePRODUTO();
         for (Produto prod : list) {
             jTable1.setValueAt(prod.getCodigoBarras(), linha, 0);
             jTable1.setValueAt(prod.getNomeProduto(), linha, 1);
@@ -447,13 +446,13 @@ public class TelaVenda extends javax.swing.JFrame {
              
         //add tabela jTable1 no POPUP
         janela.add(jTable1);
-        
-        botao.addActionListener((java.awt.event.ActionEvent evt) -> {
-            idString = textArea.getText();
+
+        botaoPopUp.addActionListener((java.awt.event.ActionEvent evt) -> {
+        	venda.adicionarProdutoVenda(Integer.parseInt(iDtextArea.getText()), qtd);
+        	setTabelaDeVenda(venda.retornaLista());
             janela.setVisible(false);
+            valorTotalLABEL.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
         });
-        return idString;
-        
     }
     
     private void mensagemPopUp(String mensagem){
@@ -504,7 +503,7 @@ public class TelaVenda extends javax.swing.JFrame {
         //pega String do campo de codigo de barras
         if(!codDeBarrasCAMPO.getText().equals("")){
            String idCampo = codDeBarrasCAMPO.getText();
-           id = Integer.parseInt(idCampo);
+           venda.adicionarProdutoVenda(Integer.parseInt(idCampo), (int) qtd.getValue());
         }
         /*
         ** pega String do campo de nome
@@ -515,18 +514,15 @@ public class TelaVenda extends javax.swing.JFrame {
             listProduto = venda.buscarProduto(nomeCampo);
                 
                 if(listProduto != null)
-                    id = Integer.parseInt(listaProdutosPOPUP(listProduto));
+                    listaProdutosPOPUP(listProduto, (int) qtd.getValue());
                 else
                     mensagemPopUp("Produto não encontrado");     
         }
-        codDeBarrasLABEL.setText(String.valueOf(qtd.getValue()));
-        if(id!=0)
-            venda.adicionarProdutoVenda(id, (int) qtd.getValue());
         
         setTabelaDeVenda(venda.retornaLista());
         
         //atualiza o valor total na view
-        valorTotalLABEL.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
+        valorTotalLABEL.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
     }//GEN-LAST:event_buscarActionPerformed
     
     private String formaDePagamento;
