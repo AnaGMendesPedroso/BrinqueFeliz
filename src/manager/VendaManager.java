@@ -109,17 +109,17 @@ public class VendaManager extends ConexaoBD {
 
             gravarArq.printf("\t\t\t\t--------------BRINQUE FELIZ S.A.--------------%n");
             String nomeCliente = ven.getCliente().getNome();
-            gravarArq.printf("%nNome Cliente:");
+            gravarArq.printf("%n\t\t\tNome Cliente:-----------------------------------");
             gravarArq.printf("%s%n", ven.getCliente().getNome());
             String nomeFuncionario = ven.getFuncionario().getNome();
-            gravarArq.printf("nNome Funcionario:");
+            gravarArq.printf("%n\t\t\tNome Funcionario:--------------------------------");
             gravarArq.printf("%s%n", nomeFuncionario);
             LinkedList<ItemVenda> lista = ven.getItemVenda();
 
-            gravarArq.printf(" Qtd ||\t\t\tNome Produto\t\t\t||    id     || Preço Unitario%n");
+            gravarArq.printf(" Qtd ||    \t\t\tNome Produto\t\t\t    ||    id     || Preço Unitario%n");
             for (ItemVenda a : lista) {
                 String q = "     ||";
-                String n = "                                               ||";
+                String n = "                                                             ||";
                 String i = "          ||";
                 String aux = "";
 
@@ -133,12 +133,12 @@ public class VendaManager extends ConexaoBD {
                 q = aux + q.substring(aux.length());
                 double precoUnitario = a.getProduto().getPreco();
                 double precoParcial = precoUnitario * qtd;
-                gravarArq.printf("%s%s%s%f%n", q, n, i, precoUnitario);
-                gravarArq.printf("  %d  *  %f   =           %f    %n", qtd, precoUnitario, precoParcial);
+                gravarArq.printf("%s%s%s%.2f%n", q, n, i, precoUnitario);
+                gravarArq.printf("\t%d*%.2f =   %.2f %n", qtd, precoUnitario, precoParcial);
             }
-            gravarArq.printf("%n\t\t\t\t\t-----------------------------------------------%n");
-            gravarArq.printf("Forma de Pagamento-------------------------------------Dinheiro%n");
-            gravarArq.printf("Total-----------------------------------------------------%f%n", ven.getValor());
+            gravarArq.printf("%n\t\t\t-----------------------------------------------%n");
+            gravarArq.printf("\t\t\tForma de Pagamento-------------------------------------Dinheiro%n");
+            gravarArq.printf("\t\t\tTotal-----------------------------------------------------%.2f%n", ven.getValor());
 
             arq.close();
             return true;

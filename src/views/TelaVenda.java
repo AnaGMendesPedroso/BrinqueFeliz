@@ -609,7 +609,7 @@ public class TelaVenda extends javax.swing.JFrame {
 	        pagamentoDinheiroVALOR.setVisible(false);
 	        
 	        JLabel totalRecebidoTEXTO = new javax.swing.JLabel();
-	        totalRecebidoTEXTO.setBounds(140, 80, 220, 100);
+	        totalRecebidoTEXTO.setBounds(140, 80, 250, 100);
 	        totalRecebidoTEXTO.setFont(new java.awt.Font("Dialog", 1, 18));  
 	        totalRecebidoTEXTO.setText("VALOR TOTAL RECEBIDO:");
 	        totalRecebidoTEXTO.setVisible(false);
