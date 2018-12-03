@@ -1,11 +1,12 @@
 				--------------BRINQUE FELIZ S.A.--------------
 
-Nome Cliente:Joilson
-nNome Funcionario:Juvenal
- Qtd ||			Nome Produto			||    id     || Preço Unitario
-5    ||NERF Gun                                       ||123       ||384,900000
-  5  *  384,900000   =           1924,500000    
+			Nome Cliente:-----------------------------------Joilson
 
-					-----------------------------------------------
-Forma de Pagamento-------------------------------------Dinheiro
-Total-----------------------------------------------------1924,500000
+			Nome Funcionario:--------------------------------Juvenal
+ Qtd ||    			Nome Produto			    ||    id     || Preço Unitario
+1    ||Carrinho Hot Wheels Ultimate Garagem FTB69 - Mattel          ||654       ||649,99
+	1*649,99 =   649,99 
+
+			-----------------------------------------------
+			Forma de Pagamento-------------------------------------Dinheiro
+			Total-----------------------------------------------------649,99
