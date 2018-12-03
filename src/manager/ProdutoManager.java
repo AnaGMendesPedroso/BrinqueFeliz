@@ -27,51 +27,60 @@ public class ProdutoManager extends ConexaoBD {
     }
 
     public Produto buscaProduto(int codigobarras) {
-        Produto p = null;
-
-        try {
+       Produto prod=null;
+       
+       try {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.produto WHERE codigobarras = '" + codigobarras + "'";
             System.out.println(sql);
-            ResultSet resultado = statement.executeQuery(sql);
-            // converter resultado para Produto aqui e onde precisar
+            ResultSet resultado =  statement.executeQuery(sql);
             while (resultado.next()) {
-                int cod = resultado.getInt("codigobarras");
-                System.out.println(cod);
-                int cat = resultado.getInt("idcategoria");
-                System.out.println(cat);
-
-                String nome = resultado.getString("nomeproduto");
-                System.out.println(nome);
-
-                double preco = resultado.getDouble("preco");
-                System.out.println(preco);
-
-                int qtd = resultado.getInt("qtdestoque");
-                System.out.println(qtd);
-
-                p = new Produto(cod, cat, nome, preco, qtd);
+                
+                int id=resultado.getInt("codigobarras");
+                int idc=resultado.getInt("idcategoria");
+                String nome=resultado.getString("nomeproduto");
+                String descricao=resultado.getString("descricao");
+                double preco=resultado.getDouble("preco");
+                
+                int qtd=resultado.getInt("qtdestoque");
+                
+                prod= new Produto(id,nome,descricao,preco,qtd);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return p;
+       
+       return prod;
     }
-
     public Collection<Produto> buscaProduto(String nomeProduto) {
         Collection<Produto> listaProd = null;
-
-        try {
+             
+       try {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.produto WHERE nomeproduto LIKE '% '" + nomeProduto + "'%";
             System.out.println(sql);
-            listaProd.add((Produto) statement.executeQuery(sql));
-
+            ResultSet resultado =  statement.executeQuery(sql);
+            while (resultado.next()) {
+                
+                int id=resultado.getInt("codigobarras");
+                int idc=resultado.getInt("idcategoria");
+                String nome=resultado.getString("nomeproduto");
+                String descricao=resultado.getString("descricao");
+                double preco=resultado.getDouble("preco");
+                
+                int qtd=resultado.getInt("qtdestoque");
+                
+             Produto   prod= new Produto(id,nome,descricao,preco,qtd);
+             listaProd.add(prod);   
+            }
+             
+            
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaProd;
+       return listaProd;
     }
 
 }

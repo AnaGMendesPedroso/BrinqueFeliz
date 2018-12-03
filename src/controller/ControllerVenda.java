@@ -28,6 +28,13 @@ public class ControllerVenda {
     PessoaManager pessoaManager = new PessoaManager();
     ProdutoManager produtoManager = new ProdutoManager();
     VendaManager vendaManager = new VendaManager();
+    
+    public Funcionario buscarFuncionario(int idFunc) {
+        Funcionario func;
+        func = pessoaManager.buscaFuncionario(idFunc);
+        return func;
+    }
+    
     //inicia venda 
     public void iniciarVenda(int idCliente, int idFuncionario) {
         Funcionario func = pessoaManager.buscaFuncionario(idFuncionario);
@@ -112,6 +119,10 @@ public class ControllerVenda {
     public boolean finalizarVenda() {
         vendaManager.finalizarVenda();
         return true;
+    }
+
+    public Cliente buscaCliente(int i) {
+        return pessoaManager.buscaCliente(i);
     }
 
 }

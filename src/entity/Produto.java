@@ -29,7 +29,15 @@ public class Produto implements Serializable {
         this.qtdEstoque = qtd;
         this.idCategoria = cat;
     }
-
+    
+    public Produto(int codigoBarras, String nomeProduto, String descricao, double preco, int qtdEstoque) {
+        this.codigoBarras = codigoBarras;
+        this.nomeProduto = nomeProduto;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.qtdEstoque = qtdEstoque;
+    }
+    
     public int getCodigoBarras() {
         return codigoBarras;
     }
