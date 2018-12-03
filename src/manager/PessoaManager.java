@@ -59,8 +59,14 @@ public class PessoaManager extends ConexaoBD {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM brinquefelizschema.funcionario WHERE matricula = '" + matricula + "'";
             System.out.println(sql);
-            func = (Funcionario) statement.executeQuery(sql);
-            
+            ResultSet resultado =  statement.executeQuery(sql);
+            while (resultado.next()) {
+                int mat = resultado.getInt("matricula");
+                String nome = resultado.getString("nome");
+                boolean adm = resultado.getBoolean("ehadministrador");
+                
+                func = new Funcionario(mat,nome,adm);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaManager.class.getName()).log(Level.SEVERE, null, ex);
         }

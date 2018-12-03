@@ -54,6 +54,12 @@ public class Funcionario implements Serializable {
          this.ehAdministrador = ehAdministrador;
     }
 
+    public Funcionario(int mat, String nome, boolean adm) {
+         this.nome = nome;
+         this.matricula = matricula;
+         this.ehAdministrador = ehAdministrador;
+    }
+
     public int getMatricula() {
         return matricula;
     }
