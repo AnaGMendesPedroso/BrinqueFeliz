@@ -26,7 +26,7 @@ public class EstoqueManager extends ConexaoBD {
         super();
     }
 
-    public void atualizaEstoque(LinkedList<ItemVenda> item) {
+ public void atualizaEstoque(LinkedList<ItemVenda> item) {
       int qtdProdutosVendidos = 0;
    
         for (ItemVenda a : item) {
@@ -41,11 +41,13 @@ public class EstoqueManager extends ConexaoBD {
             
             ResultSet resultado = statement.executeQuery(sql1);
            int qtdFinal = resultado.getInt("qtdestoque") - qtdProdutosVendidos;
-           
+            
            String sql2 = "UPDATE  brinquefelizschema.produto SET  qtdestoque ='"+qtdFinal+"' WHERE codigobarras = '"+aux.getCodigoBarras()+"'";
-           System.out.println(sql2);          
+           System.out.println(sql2);  
+           statement.executeUpdate(sql2);
            
            String sql3 = "UPDATE  brinquefelizschema.estoque SET quantidade = '"+qtdFinal+"'";
+           statement.executeUpdate(sql3);
         } catch (SQLException ex) {
               Logger.getLogger(EstoqueManager.class.getName()).log(Level.SEVERE, null, ex);
           }

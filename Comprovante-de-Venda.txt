@@ -1,0 +1,11 @@
+				--------------BRINQUE FELIZ S.A.--------------
+
+Nome Cliente:Joilson
+nNome Funcionario:Juvenal
+ Qtd ||			Nome Produto			||    id     || Preço Unitario
+3    ||NERF Gun                                       ||123       ||384,900000
+  3  *  384,900000   =           1154,700000    
+
+					-----------------------------------------------
+Forma de Pagamento-------------------------------------Dinheiro
+Total-----------------------------------------------------1154,700000

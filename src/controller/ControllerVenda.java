@@ -75,21 +75,14 @@ public class ControllerVenda {
 
     
     //remove produto da venda se esse produto existir
-    public boolean removerProdutoVenda(int idProduto) {
+    public void removerProdutoVenda(int idProduto) {
         Produto prod;
-        //retorna o produto que deseja retirar
-        prod = produtoManager.buscaProduto(idProduto);
-        //verifica se o produto existe na venda,se sim remove;
-        if(vendaManager.buscaProdutoLista(prod)){
-        vendaManager.removerProdutoVenda(prod);
-        return true;
         
-        }
-        // se não retorna false
-        else return false;
+        prod = produtoManager.buscaProduto(idProduto);
+        
+        vendaManager.removerProdutoVenda(prod);
 
-    }
-    
+    }    
     //Retorna lista de itens para 
     public LinkedList<ItemVenda> retornaLista(){
         LinkedList<ItemVenda> lista= vendaManager.retornaLista();
@@ -106,7 +99,7 @@ public class ControllerVenda {
     
     // tratar depois com banco de dados
     public boolean atualizarEstoque(LinkedList<ItemVenda> item) {
-
+        System.out.println("entrou em atualizar estoque");
         estoqueManager.atualizaEstoque(item);
         return true;
     }
@@ -117,6 +110,7 @@ public class ControllerVenda {
     }
 
     public boolean finalizarVenda() {
+        System.out.println("entrou em finalizar venda");
         vendaManager.finalizarVenda();
         return true;
     }
