@@ -42,7 +42,6 @@ public class VendaManager extends ConexaoBD {
 
         ven = new Venda(cli, fun);
 
-
     }
 
     public void iniciarVenda(Funcionario func) {
@@ -76,26 +75,31 @@ public class VendaManager extends ConexaoBD {
         }
         return preco;
     }
+
     public void removerProdutoVenda(Produto prod) {
-    	ItemVenda exclui = new ItemVenda();
-    	LinkedList<ItemVenda> aa= new LinkedList<ItemVenda>();
-        
+        ItemVenda exclui = new ItemVenda();
+        LinkedList<ItemVenda> aa = new LinkedList<ItemVenda>();
+
         for (ItemVenda a : ven.getItemVenda()) {
-        	if(a.getProduto().getCodigoBarras()==prod.getCodigoBarras())continue;
-        	else aa.add(a);
-        	
+            if (a.getProduto().getCodigoBarras() == prod.getCodigoBarras()) {
+                continue;
+            } else {
+                aa.add(a);
+            }
+
         }
         ven.setItemVenda(aa);
-        
+
     }
+
     // registra pagamento no banco e retorna se registrou
     public void registraPagamento(double valorVenda) {
-        
+
         ven.setValor(valorVenda);
         Cliente cli = ven.getCliente();
         //registra novo pagamento 
         Pagamento pag = new Pagamento(valorVenda, "Dinheiro", cli, ven);
-         ven.setData("2018-12-03");
+        ven.setData("2018-12-03");
     }
 
     public boolean gerarComprovante() {
@@ -112,22 +116,21 @@ public class VendaManager extends ConexaoBD {
             gravarArq.printf("%s%n", nomeFuncionario);
             LinkedList<ItemVenda> lista = ven.getItemVenda();
 
-            
             gravarArq.printf(" Qtd ||\t\t\tNome Produto\t\t\t||    id     || Preço Unitario%n");
             for (ItemVenda a : lista) {
-                String q="     ||";
-                String n="                                               ||";
-                String i= "          ||";
-                String aux="";
+                String q = "     ||";
+                String n = "                                               ||";
+                String i = "          ||";
+                String aux = "";
 
                 String nome = a.getProduto().getNomeProduto();
-                n=nome+n.substring(nome.length());
+                n = nome + n.substring(nome.length());
                 int id = a.getProduto().getCodigoBarras();
-                aux=id+"";
-                i=aux+i.substring(aux.length());
+                aux = id + "";
+                i = aux + i.substring(aux.length());
                 int qtd = a.getQuantidade();
-                aux=qtd+"";
-                q=aux+q.substring(aux.length());
+                aux = qtd + "";
+                q = aux + q.substring(aux.length());
                 double precoUnitario = a.getProduto().getPreco();
                 double precoParcial = precoUnitario * qtd;
                 gravarArq.printf("%s%s%s%f%n", q, n, i, precoUnitario);
@@ -144,9 +147,8 @@ public class VendaManager extends ConexaoBD {
         }
     }
 
-
     public LinkedList<ItemVenda> retornaLista() {
-    	LinkedList<ItemVenda> lista = ven.getItemVenda();
+        LinkedList<ItemVenda> lista = ven.getItemVenda();
         return lista;
     }
 
@@ -163,67 +165,67 @@ public class VendaManager extends ConexaoBD {
 
     }
 
-    
     public boolean finalizarVenda() {
         System.out.println("finalizar em BD");
         // pega a quantidade de itens da venda
         LinkedList<ItemVenda> list = ven.getItemVenda();
         int quantidade = 0;
-        for(ItemVenda a: list){
+        for (ItemVenda a : list) {
             quantidade += a.getQuantidade();
             System.out.println(quantidade);
-        }   
-        
+        }
+
         boolean teste;
-        try{
+        try {
             //insere venda sem id(id é o banco q coloca)
-           Statement statement = conn.createStatement();
+            Statement statement = conn.createStatement();
             System.out.println(conn.isClosed());
             String sql = "INSERT INTO brinquefelizschema.venda (matriculafuncionario, idcliente, valor, data , qtdproduto)"
-        +" VALUES ("+ven.getFuncionario().getMatricula()+", "+ven.getCliente().getIdCliente()+" ,"+ ven.getValor()+" ,'"+ven.getData()+"',"+quantidade+")";
-            
+                    + " VALUES (" + ven.getFuncionario().getMatricula() + ", " + ven.getCliente().getIdCliente() + " ," + ven.getValor() + " ,'" + ven.getData() + "'," + quantidade + ")";
+
             System.out.println(sql);
-            
+
             int r = statement.executeUpdate(sql);
             System.out.println(r);
-            
-            
+
             // seleciona idVenda
             String sqlidVenda = "SELECT idVenda "
-                             + "FROM brinquefelizschema.venda"
-                            + " WHERE matriculaFuncionario ="+ven.getFuncionario().getMatricula()
-                            +"AND idCliente="+ven.getCliente().getIdCliente()
-                            + "AND valor="+ven.getValor()+
-                                "AND data="+ven.getData()+
-                             "AND qtdProduto="+quantidade;
-       
-           ResultSet resultado = statement.executeQuery(sqlidVenda);
+                    + "FROM brinquefelizschema.venda"
+                    + " WHERE matriculaFuncionario = " + ven.getFuncionario().getMatricula()
+                    + "AND idCliente= " + ven.getCliente().getIdCliente()
+                   // + "AND valor= " + ven.getValor()
+                    + "AND qtdProduto= " + quantidade;
+
             System.out.println(sqlidVenda);
-           int idVenda = resultado.getInt("idVenda");
-           ven.setIdVenda(idVenda);
-            System.out.println(idVenda);
+           
+            ResultSet resultado = statement.executeQuery(sqlidVenda);
+            System.out.println(resultado.toString());
+            int idVenda;
+            while (resultado.next()) {
+                idVenda = resultado.getInt(1);
+                ven.setIdVenda(idVenda);
+                System.out.println(idVenda);
+            }
             // insere pagamento no banco de dados
-            String sqlPagamento = "INSERT INTO brinquefelizschema.pagamento (idVenda, valor, tipoPgto) VALUES ('"+ven.getIdVenda()+"', "+ven.getValor()+" , 'Dinheiro')";
+            String sqlPagamento = "INSERT INTO brinquefelizschema.pagamento (idVenda, valor, tipoPgto) VALUES ('" + ven.getIdVenda() + "', " + ven.getValor() + " , 'Dinheiro')";
             statement.executeUpdate(sqlPagamento);
             System.out.println(sqlPagamento);
-            
-            //insere cada item da lista no banco de dados
-            for(ItemVenda a: list){
-                System.out.println("entrou no for");
-                String sqlItem ="INSERT INTO brinquefelizschema.itemvenda (idvenda, codigobarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
 
-            statement.executeUpdate(sqlItem);
+            //insere cada item da lista no banco de dados
+            for (ItemVenda a : list) {
+                System.out.println("entrou no for");
+                String sqlItem = "INSERT INTO brinquefelizschema.itemvenda (idvenda, codigobarras, quantidade) VALUES (" + ven.getIdVenda() + "," + a.getProduto().getCodigoBarras() + " , " + a.getQuantidade() + ")";
+
+                statement.executeUpdate(sqlItem);
                 System.out.println(sqlItem);
             }
-            
-           
-            
-            teste= true;
-            //sei la q q coloca nesse cath
-           } catch (SQLException ex) {
-               Logger.getLogger(EstoqueManager.class.getName()).log(Level.SEVERE, null, ex);
-              teste= false;
-          }
+
+            teste = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EstoqueManager.class.getName()).log(Level.SEVERE, null, ex);
+            teste = false;
+        }
         return teste;
     }
 
