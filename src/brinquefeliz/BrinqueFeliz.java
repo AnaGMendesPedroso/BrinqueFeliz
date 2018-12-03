@@ -5,6 +5,7 @@
  */
 package brinquefeliz;
 
+import views.*;
 /**
  *
  * @author anapedroso
@@ -15,7 +16,8 @@ public class BrinqueFeliz {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       TelaVenda view = new TelaVenda();
+       view.starViews();
     }
     
 }

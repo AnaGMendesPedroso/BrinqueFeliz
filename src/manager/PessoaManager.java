@@ -57,7 +57,7 @@ public class PessoaManager extends ConexaoBD {
         
          try {
             Statement statement = conn.createStatement();
-            String sql = "SELECT * FROM brinquefelizschema.funcionario WHERE idcliente = '" + matricula + "'";
+            String sql = "SELECT * FROM brinquefelizschema.funcionario WHERE matricula = '" + matricula + "'";
             System.out.println(sql);
             func = (Funcionario) statement.executeQuery(sql);
             

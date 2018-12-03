@@ -106,6 +106,7 @@ public class VendaManager extends ConexaoBD {
             gravarArq.printf("%nNome Funcionario:");
             gravarArq.printf("%d%n", nomeFuncionario);
             Collection<ItemVenda> lista = ven.getItemVenda();
+
             
             gravarArq.printf(" Qtd ||\t\t\tNome Produto\t\t\t||    id     || Preço Unitario%n");
             for (ItemVenda a : lista) {
@@ -113,6 +114,7 @@ public class VendaManager extends ConexaoBD {
                 String n="                                               ||";
                 String i= "          ||";
                 String aux="";
+
                 String nome = a.getProduto().getNomeProduto();
                 n=nome+n.substring(nome.length());
                 int id = a.getProduto().getCodigoBarras();
@@ -136,6 +138,26 @@ public class VendaManager extends ConexaoBD {
             return false;
         }
     }
+
+
+    public Collection<ItemVenda> retornaLista() {
+        Collection<ItemVenda> lista = ven.getItemVenda();
+        return lista;
+    }
+
+    // busca produto dentro da venda iniciada e retorna se o produto existe ou não
+    public boolean buscaProdutoLista(Produto prod) {
+        Collection<ItemVenda> lista = ven.getItemVenda();
+        boolean teste = false;
+        for (ItemVenda a : lista) {
+            if (a.getProduto().equals(prod)) {
+                teste = true;
+            }
+        }
+        return teste;
+
+    }
+
     
     public boolean finalizarVenda() {
         // pega a quantidade de itens da venda
@@ -173,7 +195,9 @@ public class VendaManager extends ConexaoBD {
             
             //insere cada item da lista no banco de dados
             for(ItemVenda a: list){
-                String sqlItem ="INSERT INTO ItemDeVenda(idVenda, codigoBarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
+
+                String sqlItem ="INSERT INTO ItemVenda(idVenda, codigoBarras, quantidade) VALUES ("+ven.getIdVenda()+","+a.getProduto().getCodigoBarras()+" , "+a.getQuantidade()+ ")";
+
             statement.executeUpdate(sqlItem);
             }
             

@@ -1,20 +1,22 @@
 --CRIA BANCO DE DADOS
+DROP DATABASE IF EXISTS brinquefeliz;
 CREATE DATABASE brinquefeliz;
 \c brinquefeliz;
+DROP SCHEMA IF EXISTS brinquefelizschema CASCADE;
+
 CREATE SCHEMA brinquefelizschema;
 SET search_path = 'brinquefelizschema';
 --CRIA USUARIO ROOT PARA USAR NO NETBEANS
-CREATE ROLE root SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';
+--CREATE ROLE root SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';
 ALTER DATABASE brinquefeliz OWNER TO root;
 ALTER SCHEMA brinquefelizschema OWNER TO root;
 
 --CONECTAR COMO USUARIO ROOT NO BD BRINQUEFELIZ
-\q
-exit
-psql -h localhost -d brinquefeliz -U root
-
+--\q
+--exit
+--psql -h localhost -d brinquefeliz -U root
 -- senha do usuário: root 
-SET search_path = 'brinquefelizschema';
+--SET search_path = 'brinquefelizschema';
 
 --CRIA TABELAS
 CREATE TABLE funcionario (
@@ -43,59 +45,59 @@ CREATE TABLE estoque (
 
 CREATE TABLE categoria (
     idCategoria SERIAL PRIMARY KEY,
-    idEstoque smallint NOT NULL,
+    idEstoque integer NOT NULL,
     nomeCategoria varchar(50) NOT NULL,
     descricao text
 );
 
 CREATE TABLE produto (
     codigoBarras numeric(11) PRIMARY KEY,
-    idCategoria smallint NOT NULL,
+    idCategoria integer NOT NULL,
     nomeProduto varchar(100) NOT NULL,
     descricao text,
-    preco money NOT NULL,
+    preco numeric(10,2) NOT NULL,
     qtdEstoque smallint NOT NULL
 );
 
 CREATE TABLE venda (
     idVenda SERIAL PRIMARY KEY,
     matriculaFuncionario numeric(11) NOT NULL,
-    idCliente numeric(11) NOT NULL,
-    valor money NOT NULL,
+    idCliente integer NOT NULL,
+    valor numeric(10,2) NOT NULL,
     data date NOT NULL, 
     qtdProduto smallint NOT NULL
 );
 
 CREATE TABLE pagamento (
     idPagamento SERIAL PRIMARY KEY,
-    idVenda smallint NOT NULL,
-    valor money NOT NULL,
+    idVenda integer NOT NULL,
+    valor numeric(10,2) NOT NULL,
     tipoPgto varchar(20) NOT NULL
 );
 
 CREATE TABLE itemvenda (
     idItemVenda  SERIAL ,
-    idVenda smallint NOT NULL,
+    idVenda integer NOT NULL,
     codigoBarras numeric(11) NOT NULL,
     quantidade smallint NOT NULL,
     PRIMARY KEY (idItemVenda, idVenda, codigoBarras)
 );
 
 CREATE TABLE funcionarioendereco (
-    matricula numeric(11),
-    idEndereco smallint,
+    matricula integer,
+    idEndereco integer,
     PRIMARY KEY(matricula,idEndereco)
 );
 
 CREATE TABLE clienteendereco (
-    idCliente numeric(11),
-    idEndereco smallint,
+    idCliente integer,
+    idEndereco integer,
     PRIMARY KEY(idCliente,idEndereco)
 );
 
 CREATE TABLE produtofornecedor (
     codigoBarrasProduto numeric(11),
-    idEmpresa smallint,
+    idEmpresa integer,
     PRIMARY KEY (codigoBarrasProduto, idEmpresa)
 );
 
@@ -199,13 +201,13 @@ INSERT INTO brinquefelizschema.categoria (idEstoque,idCategoria, nomeCategoria, 
 VALUES (1, 8,'Arminhas', 'Nerf');
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (77777777, 8, 'NERF Gun', 'NERF é uma linha de brinquedos desenvolvidos para serem jogados com segurança em ambientes fechados, produzidos com um material esponjoso macio e leve que evita acidentes', '384.90',150);
+VALUES (123, 8, 'NERF Gun', 'NERF é uma linha de brinquedos desenvolvidos para serem jogados com segurança em ambientes fechados, produzidos com um material esponjoso macio e leve que evita acidentes', '384,90',150);
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (88888888, 7,'Carrinho Hot Wheels Ultimate Garagem FTB69 - Mattel','Diversão garantida com o Carrinho Hot Wheels Ultimate Garagem, da Mattel, um carrinho para colecionar e brincar com uma reviravolta e um ataque surpresa de tubarões. Deixe voar a imaginação das crianças, com características surpreendentes que incluem espaço para armazenar mais de 80 carros. O playset inclui 2 veículos metálicos Hot Wheels. Personalizados para transformar as brincadeiras.','649.99',50);
+VALUES (654, 7,'Carrinho Hot Wheels Ultimate Garagem FTB69 - Mattel','Diversão garantida com o Carrinho Hot Wheels Ultimate Garagem, da Mattel, um carrinho para colecionar e brincar com uma reviravolta e um ataque surpresa de tubarões. Deixe voar a imaginação das crianças, com características surpreendentes que incluem espaço para armazenar mais de 80 carros. O playset inclui 2 veículos metálicos Hot Wheels. Personalizados para transformar as brincadeiras.','649,99',50);
 
 INSERT INTO brinquefelizschema.produto (codigoBarras, idCategoria,nomeProduto,descricao,preco,qtdEstoque) 
-VALUES (99999999,6,'Boneca Ladybug Baby Brink','Sabe aquela personagem da tv que sempre gostamos e queremos estar perto o tempo todo? Agora é possível! Com a "Boneca Ladybug" você pode não só apertar, mas beijar, brincar a toda hora e lugar. Confeccionada de plástico, vinil e Pvc, ela é perfeita para a brincadeira de chá, escolhinha, para levar ao parque ou brincar com suas amigas.','79.90',90);
+VALUES (987,6,'Boneca Ladybug Baby Brink','Sabe aquela personagem da tv que sempre gostamos e queremos estar perto o tempo todo? Agora é possível! Com a "Boneca Ladybug" você pode não só apertar, mas beijar, brincar a toda hora e lugar. Confeccionada de plástico, vinil e Pvc, ela é perfeita para a brincadeira de chá, escolhinha, para levar ao parque ou brincar com suas amigas.','79,90',90);
 
 INSERT INTO brinquefelizschema.estoque (idEstoque, quantidade)
 VALUES (1,290);
@@ -223,13 +225,13 @@ INSERT INTO brinquefelizschema.clienteendereco (idCliente, idEndereco)
 VALUES (20,4);
 
 INSERT INTO brinquefelizschema.produtofornecedor (codigoBarrasProduto, idEmpresa)
-VALUES (77777777,99);
+VALUES (123,99);
 
 INSERT INTO brinquefelizschema.produtofornecedor (codigoBarrasProduto, idEmpresa)
-VALUES (88888888,99);
+VALUES (654,99);
 
 INSERT INTO brinquefelizschema.produtofornecedor (codigoBarrasProduto, idEmpresa)
-VALUES (99999999,99);
+VALUES (987,99);
 
 ALTER TABLE     brinquefelizschema.categoria           ENABLE TRIGGER ALL;
 ALTER TABLE     brinquefelizschema.cliente             ENABLE TRIGGER ALL;
@@ -244,3 +246,4 @@ ALTER TABLE     brinquefelizschema.pagamento           ENABLE TRIGGER ALL;
 ALTER TABLE     brinquefelizschema.produto             ENABLE TRIGGER ALL;
 ALTER TABLE     brinquefelizschema.produtofornecedor   ENABLE TRIGGER ALL;
 ALTER TABLE     brinquefelizschema.venda               ENABLE TRIGGER ALL;
+
