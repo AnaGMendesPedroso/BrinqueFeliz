@@ -10,7 +10,10 @@ package views;
 import entity.*;
 import controller.*;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -481,10 +484,10 @@ public class TelaVenda extends javax.swing.JFrame {
         });
     }
     
-    private void setTabelaDeVenda(LinkedList<ItemDeVenda> listProduto){
+    private void setTabelaDeVenda(LinkedList<ItemVenda> listProduto){
         Produto produto;
         int linha=0;
-        for (ItemDeVenda item : listProduto) {
+        for (ItemVenda item : listProduto) {
             produto = item.getProduto();
             listaProdutos.setValueAt(produto.getQtdEstoque(), linha, 0);
             listaProdutos.setValueAt(produto.getCodigoBarras(), linha, 1);
@@ -521,7 +524,7 @@ public class TelaVenda extends javax.swing.JFrame {
         if(id!=0)
             venda.adicionarProdutoVenda(id, (int) qtd.getValue());
         
-        setTabelaDeVenda((LinkedList<ItemDeVenda>)venda.retornaLista());
+        setTabelaDeVenda((LinkedList<ItemVenda>)venda.retornaLista());
         
         //atualiza o valor total na view
         valorTotalLABEL.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
@@ -687,7 +690,11 @@ public class TelaVenda extends javax.swing.JFrame {
             if(venda.finalizarVenda()){
                 popUpPagamento.setVisible(false);
                 mensagemPopUp("Venda Efetuada com sucesso");
-                venda.gerarComprovante();
+                try {
+                    venda.gerarComprovante();
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }else
                 mensagemPopUp("Houve um erro ao efetuar pagamento");
         });
@@ -708,7 +715,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void removerProdutoBOTAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutoBOTAOActionPerformed
         venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
-        setTabelaDeVenda((LinkedList<ItemDeVenda>)venda.retornaLista());
+        setTabelaDeVenda((LinkedList<ItemVenda>)venda.retornaLista());
     }//GEN-LAST:event_removerProdutoBOTAOActionPerformed
     
     public void startVenda(Funcionario funcionario, Cliente cliente) {
