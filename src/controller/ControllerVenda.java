@@ -111,7 +111,10 @@ public class ControllerVenda {
 
     public boolean finalizarVenda() {
         System.out.println("entrou em finalizar venda");
-        vendaManager.finalizarVenda();
+        
+        if(vendaManager.finalizarVenda()){
+            estoqueManager.atualizaEstoque(vendaManager.retornaLista());
+        }
         return true;
     }
 
