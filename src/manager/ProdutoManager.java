@@ -27,7 +27,7 @@ public class ProdutoManager extends ConexaoBD {
     }
 
     public Produto buscaProduto(int codigobarras) {
-       Produto prod=null;
+       Produto prod=new Produto();
        
        try {
             Statement statement = conn.createStatement();
@@ -35,14 +35,14 @@ public class ProdutoManager extends ConexaoBD {
             System.out.println(sql);
             ResultSet resultado =  statement.executeQuery(sql);
             while (resultado.next()) {
+            	int id=resultado.getInt(1);
+                int idc=resultado.getInt(2);
+                String nome=resultado.getString(3);
+                String descricao=resultado.getString(4);
+                double preco=resultado.getDouble(5);
                 
-                int id=resultado.getInt("codigobarras");
-                int idc=resultado.getInt("idcategoria");
-                String nome=resultado.getString("nomeproduto");
-                String descricao=resultado.getString("descricao");
-                double preco=resultado.getDouble("preco");
-                
-                int qtd=resultado.getInt("qtdestoque");
+                int qtd=resultado.getInt(6);
+                System.out.println(id+" "+nome);
                 
                 prod= new Produto(id,nome,descricao,preco,qtd);
                 
@@ -54,27 +54,27 @@ public class ProdutoManager extends ConexaoBD {
        
        return prod;
     }
-    public Collection<Produto> buscaProduto(String nomeProduto) {
-        Collection<Produto> listaProd = null;
+    public LinkedList<Produto> buscaProduto(String nomeProduto) {
+        LinkedList<Produto> listaProd=new LinkedList<Produto>();
              
        try {
             Statement statement = conn.createStatement();
-            String sql = "SELECT * FROM brinquefelizschema.produto WHERE nomeproduto LIKE '% '" + nomeProduto + "'%";
+            String sql = "SELECT * FROM brinquefelizschema.produto WHERE nomeproduto LIKE '%" + nomeProduto + "%'";
             System.out.println(sql);
             ResultSet resultado =  statement.executeQuery(sql);
             while (resultado.next()) {
+            	int id=resultado.getInt(1);
+                int idc=resultado.getInt(2);
+                String nome=resultado.getString(3);
+                String descricao=resultado.getString(4);
+                double preco=resultado.getDouble(5);
                 
-                int id=resultado.getInt("codigobarras");
-                int idc=resultado.getInt("idcategoria");
-                String nome=resultado.getString("nomeproduto");
-                String descricao=resultado.getString("descricao");
-                double preco=resultado.getDouble("preco");
-                
-                int qtd=resultado.getInt("qtdestoque");
-                
+                int qtd=resultado.getInt(6);
+                System.out.println(id+" "+nome);
              Produto   prod= new Produto(id,nome,descricao,preco,qtd);
              listaProd.add(prod);   
             }
+            
              
             
         } catch (SQLException ex) {

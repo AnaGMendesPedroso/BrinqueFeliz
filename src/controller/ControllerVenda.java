@@ -5,7 +5,7 @@ import entity.Funcionario;
 import entity.ItemVenda;
 import entity.Produto;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.LinkedList;
 import java.util.LinkedList;
 import manager.EstoqueManager;
 import manager.PessoaManager;
@@ -36,7 +36,7 @@ public class ControllerVenda {
     }
     
     //inicia venda 
-    public void iniciarVenda(int idCliente, int idFuncionario) {
+    public void iniciarVenda(long idCliente, int idFuncionario) {
         Funcionario func = pessoaManager.buscaFuncionario(idFuncionario);
         if(idCliente!=0){
         Cliente cli = pessoaManager.buscaCliente(idCliente);
@@ -60,8 +60,8 @@ public class ControllerVenda {
     
     
     //busca produto por nome e retorna uma lista de produtos
-    public Collection<Produto> buscarProduto(String nomeProduto) {
-        Collection<Produto> listProd;
+    public LinkedList<Produto> buscarProduto(String nomeProduto) {
+        LinkedList<Produto> listProd;
         listProd = produtoManager.buscaProduto(nomeProduto);
         return listProd;
     }
@@ -91,8 +91,8 @@ public class ControllerVenda {
     }
     
     //Retorna lista de itens para 
-    public Collection<ItemVenda> retornaLista(){
-        Collection<ItemVenda> lista= vendaManager.retornaLista();
+    public LinkedList<ItemVenda> retornaLista(){
+        LinkedList<ItemVenda> lista= vendaManager.retornaLista();
     return lista;
        }
     

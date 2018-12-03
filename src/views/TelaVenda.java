@@ -30,10 +30,9 @@ public class TelaVenda extends javax.swing.JFrame {
     ControllerVenda venda = new ControllerVenda();
 
     public TelaVenda() {
-        initComponents();
-    }
-    
-    public TelaVenda(Funcionario funcionario, Cliente cliente) {
+    	Funcionario funcionario=venda.buscarFuncionario(123321);
+    	Cliente cliente =venda.buscaCliente(10);
+    	venda.iniciarVenda(cliente.getIdCliente(), funcionario.getMatricula());
         initComponents();
         setFoncionario(funcionario, cliente);
         setLocationRelativeTo(null); 
@@ -489,11 +488,11 @@ public class TelaVenda extends javax.swing.JFrame {
         int linha=0;
         for (ItemVenda item : listProduto) {
             produto = item.getProduto();
-            listaProdutos.setValueAt(produto.getQtdEstoque(), linha, 0);
+            listaProdutos.setValueAt(item.getQuantidade(), linha, 0);
             listaProdutos.setValueAt(produto.getCodigoBarras(), linha, 1);
             listaProdutos.setValueAt(produto.getNomeProduto(), linha, 2);
             listaProdutos.setValueAt("R$"+produto.getPreco(), linha, 3);
-            listaProdutos.setValueAt("R$"+(produto.getPreco()*((int)qtd.getValue())), linha, 4);
+            listaProdutos.setValueAt("R$"+(produto.getPreco()*item.getQuantidade()), linha, 4);
             linha++;
         }
     }
@@ -513,18 +512,18 @@ public class TelaVenda extends javax.swing.JFrame {
         */
         else if(!nomeTEXTO.getText().equals("")){
             String nomeCampo = nomeTEXTO.getText();
-            listProduto = (LinkedList<Produto>) venda.buscarProduto(nomeCampo);
+            listProduto = venda.buscarProduto(nomeCampo);
                 
                 if(listProduto != null)
                     id = Integer.parseInt(listaProdutosPOPUP(listProduto));
                 else
                     mensagemPopUp("Produto não encontrado");     
         }
-        
+        codDeBarrasLABEL.setText(String.valueOf(qtd.getValue()));
         if(id!=0)
             venda.adicionarProdutoVenda(id, (int) qtd.getValue());
         
-        setTabelaDeVenda((LinkedList<ItemVenda>)venda.retornaLista());
+        setTabelaDeVenda(venda.retornaLista());
         
         //atualiza o valor total na view
         valorTotalLABEL.setText("R$ " + String.valueOf(venda.calcularValorTotal()));
@@ -715,10 +714,11 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void removerProdutoBOTAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutoBOTAOActionPerformed
         venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
-        setTabelaDeVenda((LinkedList<ItemVenda>)venda.retornaLista());
+        setTabelaDeVenda(venda.retornaLista());
     }//GEN-LAST:event_removerProdutoBOTAOActionPerformed
     
-    public void startVenda(Funcionario funcionario, Cliente cliente) {
+    public void startVenda() {
+    	
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -747,7 +747,7 @@ public class TelaVenda extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new TelaVenda(funcionario, cliente).setVisible(true);
+            new TelaVenda().setVisible(true);
         });
     }
 
