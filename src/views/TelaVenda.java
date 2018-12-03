@@ -491,7 +491,6 @@ public class TelaVenda extends javax.swing.JFrame {
             listaProdutos.setValueAt(null, i, 3);
             listaProdutos.setValueAt(null, i, 4);
         }
-        valorTotalLABEL.setText("R$ 0.00"); 
     }
     
     public void fim() {
@@ -517,27 +516,29 @@ public class TelaVenda extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         LinkedList<Produto> listProduto;
         int id = 0;
-
-        //pega String do campo de codigo de barras
-        if(!codDeBarrasCAMPO.getText().equals("") && nomeTEXTO.getText().equals("")){
-           String idCampo = codDeBarrasCAMPO.getText();
-           venda.adicionarProdutoVenda(Integer.parseInt(idCampo), (int) qtd.getValue());
-        }
-        /*
-        ** pega String do campo de nome
-        ** chama o metodo para buscar produto por nome que retorna um int id
-        */
-        else if(codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals("")){
-            String nomeCampo = nomeTEXTO.getText();
-            listProduto = venda.buscarProduto(nomeCampo);
-                
-                if(listProduto != null)
-                    listaProdutosPOPUP(listProduto, (int) qtd.getValue());
-                else
-                    mensagemPopUp("Produto não encontrado");     
-        }else if(!codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals(""))
-        	mensagemPopUp("Insira em apenas um dos campos"); 
         
+        if((int) qtd.getValue()>0){
+	        //pega String do campo de codigo de barras
+	        if(!codDeBarrasCAMPO.getText().equals("") && nomeTEXTO.getText().equals("")){
+	           String idCampo = codDeBarrasCAMPO.getText();
+	           venda.adicionarProdutoVenda(Integer.parseInt(idCampo), (int) qtd.getValue());
+	        }
+	        /*
+	        ** pega String do campo de nome
+	        ** chama o metodo para buscar produto por nome que retorna um int id
+	        */
+	        else if(codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals("")){
+	            String nomeCampo = nomeTEXTO.getText();
+	            listProduto = venda.buscarProduto(nomeCampo);
+	                
+	                if(listProduto != null)
+	                    listaProdutosPOPUP(listProduto, (int) qtd.getValue());
+	                else
+	                    mensagemPopUp("Produto não encontrado");     
+	        }else if(!codDeBarrasCAMPO.getText().equals("") && !nomeTEXTO.getText().equals(""))
+	        	mensagemPopUp("Insira em apenas um dos campos"); 
+        }else
+        	mensagemPopUp("Quantidade incorreta");
         setTabelaDeVenda(venda.retornaLista());
         
         //atualiza o valor total na view
@@ -744,6 +745,7 @@ public class TelaVenda extends javax.swing.JFrame {
     	if(!idREMOVER.getText().equals("")) {
     		zeraTudo();
     		venda.removerProdutoVenda(Integer.parseInt(idREMOVER.getText()));
+    		valorTotalLABEL.setText("R$ " + String.format( "%.2f",(venda.calcularValorTotal())));
     		
     		
     	}
