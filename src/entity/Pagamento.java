@@ -20,6 +20,7 @@ public class Pagamento implements Serializable {
 
     private Venda venda;
 
+    private String data;
     public Pagamento() {
     }
 
