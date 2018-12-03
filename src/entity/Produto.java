@@ -16,23 +16,18 @@ public class Produto implements Serializable {
     private double preco;
 
     private int qtdEstoque;
-
-
-    private Categoria categoria;
-
-    private Collection<Empresa> empresa;
-
+    
+    private int idCategoria;
+    
     public Produto() {
     }
 
-    public Produto(int codigoBarras, String nomeProduto, String descricao, double preco, int qtdEstoque, Categoria categoria, Collection<Empresa> empresa) {
-        this.codigoBarras = codigoBarras;
-        this.nomeProduto = nomeProduto;
-        this.descricao = descricao;
+    public Produto(int cod, int cat, String nome, double preco, int qtd) {
+        this.codigoBarras = cod;
+        this.nomeProduto = nome;
         this.preco = preco;
-        this.qtdEstoque = qtdEstoque;
-        this.categoria = categoria;
-        this.empresa = empresa;
+        this.qtdEstoque = qtd;
+        this.idCategoria = cat;
     }
 
     public int getCodigoBarras() {
@@ -75,21 +70,11 @@ public class Produto implements Serializable {
         this.qtdEstoque = qtdEstoque;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public int getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Collection<Empresa> getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Collection<Empresa> empresa) {
-        this.empresa = empresa;
-    }
-
-    
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }  
 }
